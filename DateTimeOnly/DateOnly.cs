@@ -43,6 +43,11 @@ namespace System
         public static DateOnly MaxValue => new DateOnly(MaxDayNumber);
 
         /// <summary>
+        /// Creates a new instance of the DateOnly with default date value equal to Jan 1st year 1.
+        /// </summary>
+        public DateOnly() => _dayNumber = 0;
+
+        /// <summary>
         /// Creates a new instance of the DateOnly structure to the specified year, month, and day.
         /// </summary>
         /// <param name="year">The year (1 through 9999).</param>

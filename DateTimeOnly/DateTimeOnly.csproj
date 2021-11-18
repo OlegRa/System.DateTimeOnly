@@ -2,22 +2,50 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard20;netstandard21;net461;net5;net6</TargetFrameworks>
-	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<AssemblyOriginatorKeyFile>..\DateTimeOnly.snk</AssemblyOriginatorKeyFile>
+	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	<EnableNETAnalyzers>True</EnableNETAnalyzers>
+	<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 	<ImplicitUsings>false</ImplicitUsings>
 	<RootNamespace>System</RootNamespace>
+	<AnalysisLevel>latest</AnalysisLevel>
+	<SignAssembly>true</SignAssembly>
 	<LangVersion>latest</LangVersion>
-	<NoWarn>436</NoWarn>
-    <Nullable>enable</Nullable>
+	<WarningLevel>5</WarningLevel>
+	<Nullable>enable</Nullable>
+	<NoWarn>436;NU5128</NoWarn>
+  </PropertyGroup>
+	
+  <PropertyGroup>
+    <!--<GenerateCompatibilitySuppressionFile>true</GenerateCompatibilitySuppressionFile>-->
+    <EnableStrictModeForCompatibleFrameworksInPackage>true</EnableStrictModeForCompatibleFrameworksInPackage>
+    <EnableStrictModeForCompatibleTfms>true</EnableStrictModeForCompatibleTfms>
+    <EnablePackageValidation>true</EnablePackageValidation>
   </PropertyGroup>
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <AssemblyName>System.DateTimeOnly</AssemblyName>
+	<RepositoryUrl>https://github.com/OlegRa/System.DateTimeOnly</RepositoryUrl>
+	<Product>DateOnly and TimeOnly types for .NET versions before 6.0</Product>
+	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	<Copyright>© 2021 Oleg Rakhmatulin. All rights reserved.</Copyright>
+	<IconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</IconUrl>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<AssemblyName>System.DateTimeOnly</AssemblyName>
+	<PackageTags>DateOnly TimeOnly</PackageTags>
+	<IncludeSymbols>true</IncludeSymbols>
+	<Authors>Oleg Rakhmatulin</Authors>
+	<SignAssembly>True</SignAssembly>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="DateTimeOnly.csproj.DotSettings" />
-  </ItemGroup>
+  <PropertyGroup>
+    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <FileVersion>6.0.0.0</FileVersion>
+    <Version>6.0.0-alpha1</Version>
+  </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard20'">
     <PackageReference Include="System.Memory" Version="4.5.4" />
@@ -25,27 +53,24 @@
 
   <ItemGroup>
     <Compile Update="Resources\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
+	</Compile>
     <EmbeddedResource Update="Resources\Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-      <CustomToolNamespace></CustomToolNamespace>
-    </EmbeddedResource>
+       <Generator>ResXFileCodeGenerator</Generator>
+	</EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\_._" Pack="true" PackagePath="lib/net6.0/" />
+    <None Update="Resources\_._" Pack="true" PackagePath="lib\net6.0\" />
+    <None Remove="DateTimeOnly.csproj.DotSettings" />
   </ItemGroup>
 
   <Target Name="RemoveNet6" AfterTargets="_WalkEachTargetPerFramework">
     <ItemGroup>
-      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6/$(AssemblyName).*" Pack="false" />
+      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6\$(AssemblyName).*" Pack="false" />
     </ItemGroup>
   </Target>
 

@@ -33,6 +33,11 @@ namespace System
         public static TimeOnly MaxValue => new TimeOnly((ulong)MaxTimeTicks);
 
         /// <summary>
+        /// Creates a new instance of the TimeOnly with default time value equal to 00:00
+        /// </summary>
+        public TimeOnly() => _ticks = 0;
+
+        /// <summary>
         /// Initializes a new instance of the timeOnly structure to the specified hour and the minute.
         /// </summary>
         /// <param name="hour">The hours (0 through 23).</param>
