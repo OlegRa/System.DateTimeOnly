@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard20;netstandard21;net461;net5;net6</TargetFrameworks>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<ImplicitUsings>false</ImplicitUsings>
+	<RootNamespace>System</RootNamespace>
+	<LangVersion>latest</LangVersion>
+	<NoWarn>436</NoWarn>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyName>System.DateTimeOnly</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DateTimeOnly.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard20'">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\_._" Pack="true" PackagePath="lib/net6.0/" />
+  </ItemGroup>
+
+  <Target Name="RemoveNet6" AfterTargets="_WalkEachTargetPerFramework">
+    <ItemGroup>
+      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6/$(AssemblyName).*" Pack="false" />
+    </ItemGroup>
+  </Target>
+
+</Project>
