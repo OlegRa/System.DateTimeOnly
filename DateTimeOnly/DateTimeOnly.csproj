@@ -28,13 +28,12 @@
 	<Product>DateOnly and TimeOnly types for .NET versions before 6.0</Product>
 	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	<Copyright>© 2021 Oleg Rakhmatulin. All rights reserved.</Copyright>
-	<IconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</IconUrl>
+	<AssemblyName>Portable.System.DateTimeOnly</AssemblyName>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	<AssemblyName>System.DateTimeOnly</AssemblyName>
 	<PackageTags>DateOnly TimeOnly</PackageTags>
 	<IncludeSymbols>true</IncludeSymbols>
 	<Authors>Oleg Rakhmatulin</Authors>

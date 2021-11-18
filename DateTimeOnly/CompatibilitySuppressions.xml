@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Suppressions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Suppression>
+    <DiagnosticId>CP1003</DiagnosticId>
+    <Target>lib/netstandard2.1/Portable.System.DateTimeOnly.dll</Target>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP1003</DiagnosticId>
+    <Target>lib/net5.0/Portable.System.DateTimeOnly.dll</Target>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP1003</DiagnosticId>
+    <Target>lib/netstandard2.0/Portable.System.DateTimeOnly.dll</Target>
+  </Suppression>
+</Suppressions>
