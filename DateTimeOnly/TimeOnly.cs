@@ -556,21 +556,13 @@ namespace System
                 {
                     case 'o':
                     case 'O':
-#if NETSTANDARD2_0 || NETFRAMEWORK
                         format = OFormat.AsSpan();
-#else
-                        format = OFormat;
-#endif
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
 
                     case 'r':
                     case 'R':
-#if NETSTANDARD2_0 || NETFRAMEWORK
                         format = RFormat.AsSpan();
-#else
-                        format = RFormat;
-#endif
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
                 }
@@ -825,31 +817,19 @@ namespace System
                 {
                     case 'o':
                     case 'O':
-#if NETSTANDARD2_0 || NETFRAMEWORK
-                        var oSpan = new Span<char>(new char[16]);
-                        Debug.Assert(DateTimeFormat.TryFormatTimeOnlyO(Hour, Minute, Second, _ticks % TimeSpan.TicksPerSecond, oSpan));
-                        return oSpan.ToString();
-#else
-                        return string.Create(16, this, (destination, value) =>
+                        return StringFactory.Create(16, this, (destination, value) =>
                         {
                             bool b = DateTimeFormat.TryFormatTimeOnlyO(value.Hour, value.Minute, value.Second, value._ticks % TimeSpan.TicksPerSecond, destination);
                             Debug.Assert(b);
                         });
-#endif
 
                     case 'r':
                     case 'R':
-#if NETSTANDARD2_0 || NETFRAMEWORK
-                        var rSpan = new Span<char>(new char[16]);
-                        Debug.Assert(DateTimeFormat.TryFormatTimeOnlyR(Hour, Minute, Second, rSpan));
-                        return rSpan.ToString();
-#else
-                        return string.Create(8, this, (destination, value) =>
+                        return StringFactory.Create(8, this, (destination, value) =>
                         {
                             bool b = DateTimeFormat.TryFormatTimeOnlyR(value.Hour, value.Minute, value.Second, destination);
                             Debug.Assert(b);
                         });
-#endif
 
                     case 't':
                     case 'T':

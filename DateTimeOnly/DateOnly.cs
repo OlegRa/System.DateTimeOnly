@@ -476,21 +476,13 @@ namespace System
                 {
                     case 'o':
                     case 'O':
-#if NETSTANDARD2_0 || NETFRAMEWORK
                         format = OFormat.AsSpan();
-#else
-                        format = OFormat;
-#endif
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
 
                     case 'r':
                     case 'R':
-#if NETSTANDARD2_0 || NETFRAMEWORK
                         format = RFormat.AsSpan();
-#else
-                        format = RFormat;
-#endif
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
                 }
@@ -742,31 +734,19 @@ namespace System
                 {
                     case 'o':
                     case 'O':
-#if NETSTANDARD2_0 || NETFRAMEWORK
-                        var oSpan = new Span<char>(new char [10]);
-                        Debug.Assert(DateTimeFormat.TryFormatDateOnlyO(Year, Month, Day, oSpan));
-                        return oSpan.ToString();
-#else
-                        return string.Create(10, this, (destination, value) =>
+                        return StringFactory.Create(10, this, (destination, value) =>
                         {
                             bool b = DateTimeFormat.TryFormatDateOnlyO(value.Year, value.Month, value.Day, destination);
                             Debug.Assert(b);
                         });
-#endif
 
                     case 'r':
                     case 'R':
-#if NETSTANDARD2_0 || NETFRAMEWORK
-                        var rSpan = new Span<char>(new char[16]);
-                        Debug.Assert(DateTimeFormat.TryFormatDateOnlyR(DayOfWeek, Year, Month, Day, rSpan));
-                        return rSpan.ToString();
-#else
-                        return string.Create(16, this, (destination, value) =>
+                        return StringFactory.Create(16, this, (destination, value) =>
                         {
                             bool b = DateTimeFormat.TryFormatDateOnlyR(value.DayOfWeek, value.Year, value.Month, value.Day, destination);
                             Debug.Assert(b);
                         });
-#endif
 
                     case 'm':
                     case 'M':

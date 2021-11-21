@@ -12,4 +12,10 @@
     <DiagnosticId>CP1003</DiagnosticId>
     <Target>lib/netstandard2.0/Portable.System.DateTimeOnly.dll</Target>
   </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:System.Buffers.SpanAction`2</Target>
+    <Left>lib/netstandard2.0/Portable.System.DateTimeOnly.dll</Left>
+    <Right>lib/net461/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
 </Suppressions>
