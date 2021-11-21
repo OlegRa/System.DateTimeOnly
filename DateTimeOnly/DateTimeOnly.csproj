@@ -2,20 +2,20 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard20;netstandard21;net461;net5;net6</TargetFrameworks>
-	<AssemblyOriginatorKeyFile>..\DateTimeOnly.snk</AssemblyOriginatorKeyFile>
-	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	<EnableNETAnalyzers>True</EnableNETAnalyzers>
-	<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-	<ImplicitUsings>false</ImplicitUsings>
-	<RootNamespace>System</RootNamespace>
-	<AnalysisLevel>latest</AnalysisLevel>
-	<SignAssembly>true</SignAssembly>
-	<LangVersion>latest</LangVersion>
-	<WarningLevel>5</WarningLevel>
-	<Nullable>enable</Nullable>
-	<NoWarn>436;NU5128</NoWarn>
+    <AssemblyOriginatorKeyFile>..\DateTimeOnly.snk</AssemblyOriginatorKeyFile>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <ImplicitUsings>false</ImplicitUsings>
+    <RootNamespace>System</RootNamespace>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <SignAssembly>true</SignAssembly>
+    <LangVersion>latest</LangVersion>
+    <WarningLevel>5</WarningLevel>
+    <Nullable>enable</Nullable>
+    <NoWarn>436;NU5128</NoWarn>
   </PropertyGroup>
-	
+
   <PropertyGroup>
     <!--<GenerateCompatibilitySuppressionFile>true</GenerateCompatibilitySuppressionFile>-->
     <EnableStrictModeForCompatibleFrameworksInPackage>true</EnableStrictModeForCompatibleFrameworksInPackage>
@@ -24,26 +24,27 @@
   </PropertyGroup>
 
   <PropertyGroup>
-	<RepositoryUrl>https://github.com/OlegRa/System.DateTimeOnly</RepositoryUrl>
-	<Product>DateOnly and TimeOnly types for .NET versions before 6.0</Product>
-	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-	<Copyright>© 2021 Oleg Rakhmatulin. All rights reserved.</Copyright>
-	<AssemblyName>Portable.System.DateTimeOnly</AssemblyName>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<EmbedUntrackedSources>true</EmbedUntrackedSources>
-	<PublishRepositoryUrl>true</PublishRepositoryUrl>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	<PackageTags>DateOnly TimeOnly</PackageTags>
-	<IncludeSymbols>true</IncludeSymbols>
-	<Authors>Oleg Rakhmatulin</Authors>
-	<SignAssembly>True</SignAssembly>
+    <PackageProjectUrl>https://github.com/OlegRa/System.DateTimeOnly</PackageProjectUrl>
+    <Description>DateOnly and TimeOnly types for .NET versions before 6.0</Description>
+    <RepositoryUrl>https://github.com/OlegRa/System.DateTimeOnly</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>© 2021 Oleg Rakhmatulin. All rights reserved.</Copyright>
+    <AssemblyName>Portable.System.DateTimeOnly</AssemblyName>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageTags>DateOnly TimeOnly</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <Authors>Oleg Rakhmatulin</Authors>
+    <SignAssembly>True</SignAssembly>
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyVersion>6.0.0.0</AssemblyVersion>
-    <FileVersion>6.0.0.0</FileVersion>
-    <Version>6.0.0-alpha1</Version>
+    <AssemblyVersion>6.0.0.1</AssemblyVersion>
+    <FileVersion>6.0.0.1</FileVersion>
+    <Version>6.0.0-alpha2</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard20'">
@@ -55,11 +56,11 @@
       <DependentUpon>Strings.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-	</Compile>
+    </Compile>
     <EmbeddedResource Update="Resources\Strings.resx">
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
        <Generator>ResXFileCodeGenerator</Generator>
-	</EmbeddedResource>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
