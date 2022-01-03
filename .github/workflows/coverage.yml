@@ -1,0 +1,45 @@
+name: Code Coverage
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Tests
+      uses: actions/checkout@v2
+
+    - name: Setup .NET 6.0.x
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore .NET Tools
+      run: dotnet tool restore
+
+    - name: Coverage All Tests
+      run: dotnet dotcover test --dcXML=Configuration.xml
+
+    - name: Save Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: CoverageReport.xml
+
+  publish:
+    name: Publish Report
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Load Report
+      uses: actions/download-artifact@v2
+      with:
+        name: coverage-report
+
+    - name: Send to Codacy
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r CoverageReport.xml

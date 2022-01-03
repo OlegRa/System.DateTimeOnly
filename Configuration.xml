@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageParams>
+  <Filters>
+    <IncludeFilters>
+      <FilterEntry>
+        <ClassMask>System.Tests.*</ClassMask>
+      </FilterEntry>
+    </IncludeFilters>
+  </Filters>
+  <Output>CoverageReport.xml</Output>
+  <ReportType>DetailedXml</ReportType>
+</CoverageParams>
