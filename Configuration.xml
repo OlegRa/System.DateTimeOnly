@@ -5,6 +5,12 @@
       <FilterEntry>
         <ClassMask>System.Tests.*</ClassMask>
       </FilterEntry>
+      <FilterEntry>
+        <ClassMask>System.DateOnly</ClassMask>
+      </FilterEntry>
+      <FilterEntry>
+        <ClassMask>System.TimeOnly</ClassMask>
+      </FilterEntry>
     </IncludeFilters>
   </Filters>
   <Output>CoverageReport.xml</Output>
