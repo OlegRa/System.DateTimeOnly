@@ -23,7 +23,9 @@ namespace System
 #if NETSTANDARD2_0 || NETFRAMEWORK
             var value = dateTime.ToString(format.ToString(), provider);
             charsWritten = value.Length;
+#pragma warning disable PC001 // API not supported on all platforms
             return value.AsSpan().TryCopyTo(destination);
+#pragma warning restore PC001 // API not supported on all platforms
 #else
             return dateTime.TryFormat(destination, out charsWritten, format, provider);
 #endif
@@ -183,7 +185,9 @@ namespace System
             destination[5] = ':';
             WriteTwoDecimalDigits((uint)second, destination, 6);
             destination[8] = '.';
+#pragma warning disable PC001 // API not supported on all platforms
             WriteDigits((uint)fraction, destination.Slice(9, 7));
+#pragma warning restore PC001 // API not supported on all platforms
 
             return true;
         }

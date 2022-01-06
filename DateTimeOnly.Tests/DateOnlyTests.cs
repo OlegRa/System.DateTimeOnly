@@ -27,9 +27,11 @@ namespace System.Tests
 
         public static IEnumerable<object[]> Constructor_TestData()
         {
+#pragma warning disable CS8625
             yield return new object[] { 1, 1, 1, null };
             yield return new object[] { 9999, 12, 31, null };
             yield return new object[] { 2001, 4, 7, null };
+#pragma warning restore CS8625
             yield return new object[] { 1, 1, 1, new HijriCalendar() };
             yield return new object[] { 1, 1, 1, new JapaneseCalendar() };
         }

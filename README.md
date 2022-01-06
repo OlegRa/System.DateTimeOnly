@@ -5,4 +5,3 @@
 # System.DateTimeOnly
 
 The .NET 6 introduced two new data types `DateOnly` and `TimeOnly` that can be used in various scenarious. If you want to use the same types in the .NET versions below to .NET 6 you can use this library in form of NuGet package. You can also use it in your own NuGet packag if you want to provide API that uses these types and make it compatible with all currently supported .NET versions at the same time.
-

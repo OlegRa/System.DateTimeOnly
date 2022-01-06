@@ -149,7 +149,7 @@ namespace System.Tests
             Assert.True(to1.IsBetween(to3, to2));
 
             Assert.True(to3.IsBetween(to3, to1));
-            Assert.True(to1.IsBetween(to1, to2));
+            Assert.True(to1.IsBetween(to1, to2)); //-V3127
 
             Assert.False(to1.IsBetween(to3, to1));
             Assert.False(to2.IsBetween(to3, to2));
@@ -190,7 +190,7 @@ namespace System.Tests
 
             Assert.Equal(new TimeSpan(3, 29, 20), to2 - to1);
             Assert.Equal(new TimeSpan(20,30, 40), to1 - to2);
-            Assert.Equal(TimeSpan.Zero, to1 - to1);
+            Assert.Equal(TimeSpan.Zero, to1 - to1); //-V3001
             Assert.Equal(new TimeSpan(2,0, 0), new TimeOnly(1, 0) - new TimeOnly(23, 0));
         }
 

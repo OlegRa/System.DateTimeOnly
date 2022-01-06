@@ -20,9 +20,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add a full exception stack trace to help explain your problem.
 
 **Environment:**
- - OS: [e.g. Windows, Linux, macOS]
- - .NET SDK version [e.g. .NET Framework 4.8 or .NET 5]
- - .NET runtime version [e.g. .NET Framework 4.8 or .NET 5]
+- OS: [e.g. Windows, Linux, macOS]
+- .NET SDK version [e.g. .NET Framework 4.8 or .NET 5]
+- .NET runtime version [e.g. .NET Framework 4.8 or .NET 5]
 
 **Additional context**
 Add any other context about the problem here.
