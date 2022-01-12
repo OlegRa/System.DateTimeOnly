@@ -3,11 +3,18 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 
 namespace System
 {
     internal static class DateTimeParse
     {
+        private const String AppContextSwitchName = "Portable.System.DateTimeOnly.UseFastParsingLogic";
+
+        private static readonly Char[] ValidDateOnlyFormatSpecifiers = { 'd', 'D', 'm', 'M', 'y', 'Y' };
+
+        private static readonly Char[] ValidTimeOnlyFormatSpecifiers = { 't', 'T' };
+
         internal static bool TryParseExact(ReadOnlySpan<char> s, ReadOnlySpan<char> format, DateTimeFormatInfo dtfi, DateTimeStyles style, ref DateTimeResult result)
         {
             var success = DateTime.TryParseExact(s.ToString(), format.ToString(), dtfi, style, out var dt);
@@ -17,11 +24,41 @@ namespace System
 
         internal static bool TryParse(ReadOnlySpan<char> s, DateTimeFormatInfo dtfi, DateTimeStyles styles, ref DateTimeResult result)
         {
-            var success = DateTime.TryParse(s.ToString(), dtfi, styles, out var dt);
+            var success = DateTime.TryParse(
+                s.ToString(), dtfi, styles | DateTimeStyles.NoCurrentDateDefault,
+                out var dt);
             result.parsedDate = dt;
+
+            if (!success || IsFastParsingLogicEnabled())
+            {
+                return success;
+            }
+
+            if (dt.Date != DateTime.MinValue ||
+                DateTime.TryParseExact(s.ToString(), GetValidDateOnlyFormatStrings(dtfi), dtfi, styles, out _))
+            {
+                result.flags |= ParseFlags.HaveDate;
+            }
+
+            if (dt.TimeOfDay != TimeSpan.Zero ||
+                DateTime.TryParseExact(s.ToString(), GetValidTimeOnlyFormatStrings(dtfi), dtfi, styles, out _))
+            {
+                result.flags |= ParseFlags.HaveTime;
+            }
+
             return success;
         }
+
+        private static Boolean IsFastParsingLogicEnabled() =>
+            AppContext.TryGetSwitch(AppContextSwitchName, out var isEnabled) && isEnabled;
+
+        private static String[] GetValidDateOnlyFormatStrings(DateTimeFormatInfo dtfi) =>
+            ValidDateOnlyFormatSpecifiers.SelectMany(dtfi.GetAllDateTimePatterns).ToArray();
+
+        private static String[] GetValidTimeOnlyFormatStrings(DateTimeFormatInfo dtfi) =>
+            ValidTimeOnlyFormatSpecifiers.SelectMany(dtfi.GetAllDateTimePatterns).ToArray();
     }
+
 
     internal enum ParseFailureKind
     {

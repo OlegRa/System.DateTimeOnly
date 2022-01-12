@@ -263,7 +263,7 @@ namespace System.Tests
         // We still test these cultures parsing but with ParseExact instead.
         internal static bool IsNotArabicCulture => !CultureInfo.CurrentCulture.Name.StartsWith("ar", StringComparison.OrdinalIgnoreCase);
 
-        [Fact] // [ConditionalFact(nameof(IsNotArabicCulture))]
+        [ConditionalFact(nameof(IsNotArabicCulture))]
         public static void BasicFormatParseTest()
         {
             string pattern = "hh:mm:ss tt";
@@ -308,7 +308,7 @@ namespace System.Tests
             Assert.Equal(timeOnly, parsedTimeOnly);
         }
 
-        [Fact] // [ConditionalFact(nameof(IsNotArabicCulture))]
+        [ConditionalFact(nameof(IsNotArabicCulture))]
         public static void FormatParseTest()
         {
             string[] patterns = new string[] { CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern, CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern, "t", "T", "o", "r" };
@@ -407,7 +407,7 @@ namespace System.Tests
             Assert.Equal(timeOnly, parsedTimeOnly);
         }
 
-        [Fact(Skip = "Known limitation of back-ported code.")] // [Fact]
+        [Fact]
         public static void InvalidFormatsTest()
         {
             DateTime dt = DateTime.Now;
