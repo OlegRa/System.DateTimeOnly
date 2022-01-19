@@ -44,9 +44,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyVersion>6.0.0.2</AssemblyVersion>
-    <FileVersion>6.0.0.2</FileVersion>
-    <Version>6.0.0</Version>
+    <PackageReleaseNotes>Parsing logic updated and now match the .NET 6 behavior. The orignal single-pass parsing logic can be enabled via application context switch.</PackageReleaseNotes>
+    <AssemblyVersion>6.0.1.0</AssemblyVersion>
+    <FileVersion>6.0.1.0</FileVersion>
+    <Version>6.0.1-beta1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6'">

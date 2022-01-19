@@ -3,7 +3,7 @@
   <Filters>
     <IncludeFilters>
       <FilterEntry>
-        <ClassMask>System.Tests.*</ClassMask>
+        <ClassMask>System.Tests.*Tests</ClassMask>
       </FilterEntry>
       <FilterEntry>
         <ClassMask>System.DateOnly</ClassMask>
