@@ -44,10 +44,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Parsing logic updated and now match the .NET 6 behavior. The orignal single-pass parsing logic can be enabled via application context switch.</PackageReleaseNotes>
-    <AssemblyVersion>6.0.1.0</AssemblyVersion>
-    <FileVersion>6.0.1.0</FileVersion>
-    <Version>6.0.1-beta1</Version>
+    <PackageReleaseNotes>Another attempt to mark this package assembly as unnecessary for .NET 6 targets for more seamless integration.</PackageReleaseNotes>
+    <AssemblyVersion>6.0.1.1</AssemblyVersion>
+    <FileVersion>6.0.1.1</FileVersion>
+    <Version>6.0.1-beta2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6'">
@@ -80,7 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\_._" Pack="true" PackagePath="lib\net6.0\" />
+    <None Include="Resources\_._" Pack="true" PackagePath="lib\net6.0\" />
     <None Include="..\Icon.png" Pack="true" PackagePath="icon.png" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
     <None Remove="DateTimeOnly.csproj.DotSettings" />
