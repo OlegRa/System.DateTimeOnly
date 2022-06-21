@@ -47,11 +47,8 @@ namespace System.Tests
         [Fact]
         public void DateOnlyTryFormatValidationWorkedTest()
         {
-            Assert.False(DateOnlyValue.TryFormat(Span<char>.Empty, out var counter, "X"));
-            Assert.Equal(0, counter);
-
-            Assert.False(DateOnlyValue.TryFormat(Span<char>.Empty, out counter, "KK"));
-            Assert.Equal(0, counter);
+            Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat(Span<char>.Empty, out _, "X"));
+            Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat(Span<char>.Empty, out _, "KK"));
         }
 
         [Fact]
@@ -168,11 +165,8 @@ namespace System.Tests
         [Fact]
         public void TimeOnlyTryFormatValidationWorkedTest()
         {
-            Assert.False(TimeOnlyValue.TryFormat(Span<char>.Empty, out var counter, "X"));
-            Assert.Equal(0, counter);
-
-            Assert.False(TimeOnlyValue.TryFormat(Span<char>.Empty, out counter, "kk"));
-            Assert.Equal(0, counter);
+            Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat(Span<char>.Empty, out _, "X"));
+            Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat(Span<char>.Empty, out _, "kk"));
         }
 
         [Fact]
