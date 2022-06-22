@@ -44,10 +44,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>Parsing logic updated and now match the .NET 6 behavior. The orignal single-pass parsing logic can be enabled via application context switch.</PackageReleaseNotes>
-    <AssemblyVersion>6.0.1.2</AssemblyVersion>
-    <FileVersion>6.0.1.2</FileVersion>
-    <Version>6.0.1</Version>
+    <PackageReleaseNotes>- Backported changes for interpolated strings handling that prevent OOM exceptions in case of invalid format strings.
+- Backported the changes for helping IDEs to highlight format strings in formatting/parsing methods correctly.</PackageReleaseNotes>
+    <AssemblyVersion>6.0.2.0</AssemblyVersion>
+    <FileVersion>6.0.2.0</FileVersion>
+    <Version>6.0.2-beta1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6'">
