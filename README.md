@@ -4,7 +4,7 @@
 [![Nuget](https://img.shields.io/nuget/v/Portable.System.DateTimeOnly?logo=NuGet)](https://www.nuget.org/packages/Portable.System.DateTimeOnly)
 [![Nuget](https://img.shields.io/nuget/dt/Portable.System.DateTimeOnly?logo=NuGet)](https://www.nuget.org/stats/packages/Portable.System.DateTimeOnly?groupby=Version)
 
-# ![Logo](https://github.com/OlegRa/System.DateTimeOnly/blob/master/Logo.png) Portable.System.DateTimeOnly
+# ![Logo](https://user-images.githubusercontent.com/4800940/174981624-cb9d6acd-ac30-4d46-9118-81425dd4d0fe.png) Portable.System.DateTimeOnly
 
 The .NET 6 introduced two new data types [`System.DateOnly`](https://docs.microsoft.com/dotnet/api/system.dateonly) and [`System.TimeOnly`](https://docs.microsoft.com/dotnet/api/system.timeonly) that can be used in various scenarios. If you want to use the same types in the .NET versions below to .NET 6 you can use this library in form of the NuGet package. You can also use it in your own NuGet package if you want to provide an API that uses these types and make it compatible with all currently supported .NET versions at the same time.
 
