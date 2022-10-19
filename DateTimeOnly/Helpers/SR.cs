@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿#if !NET6_0_OR_GREATER
+using System.Diagnostics.CodeAnalysis;
 using System.Resources;
 using System.Runtime.CompilerServices;
 
@@ -47,3 +48,4 @@ namespace System
             s_usingResourceKeys ? string.Join(", ", resourceFormat, p1, p2) : string.Format(resourceFormat, p1, p2);
     }
 }
+#endif

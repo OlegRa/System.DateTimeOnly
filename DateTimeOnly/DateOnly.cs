@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // ReSharper disable All
 
+#if !NET6_0_OR_GREATER
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -827,3 +828,4 @@ namespace System
         }
     }
 }
+#endif
