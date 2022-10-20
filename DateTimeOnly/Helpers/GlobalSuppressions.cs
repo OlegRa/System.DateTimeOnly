@@ -1,5 +1,3 @@
-﻿#if !NET6_0_OR_GREATER
-using System;
+﻿using System;
 
 [assembly: CLSCompliant(true)]
-#endif

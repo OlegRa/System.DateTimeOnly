@@ -1,7 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-#if !NET6_0_OR_GREATER
 namespace System
 {
     /// <summary>Provides functionality to format the string representation of an object into a span.</summary>
@@ -21,4 +20,3 @@ namespace System
         bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider);
     }
 }
-#endif

@@ -1,5 +1,4 @@
-﻿#if !NET6_0_OR_GREATER
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 // ReSharper disable once CheckNamespace
 namespace System.Diagnostics
@@ -19,4 +18,3 @@ namespace System.Diagnostics
         }
     }
 }
-#endif
