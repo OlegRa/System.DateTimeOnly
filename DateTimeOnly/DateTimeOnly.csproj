@@ -53,24 +53,28 @@
     <Version>6.0.2</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6'">
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>None</DebugType>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Memory" Version="4.5.4" PrivateAssets="compile;contentfiles;build;analyzers" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <Compile Remove="**/*.cs" />
     <Compile Include="TypeForwarding.cs" />
     <EmbeddedResource Remove="Resources\Strings.resx" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net6'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net6.0'">
     <Compile Remove="TypeForwarding.cs" />
     <None Include="TypeForwarding.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.4" PrivateAssets="compile;contentfiles;build;analyzers" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,19 +104,21 @@
     <None Remove="DateTimeOnly.csproj.DotSettings" />
   </ItemGroup>
 
-  <Target Name="RemoveNet6" AfterTargets="_WalkEachTargetPerFramework">
-    <ItemGroup>
-      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6.0\$(AssemblyName).*" Pack="false" />
-    </ItemGroup>
-  </Target>
-
   <PropertyGroup>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);AddRefAssemblyToPackage</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
+  <Target Name="RemoveNet6" AfterTargets="_WalkEachTargetPerFramework">
+    <ItemGroup>
+      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6.0\$(AssemblyName).*" Pack="false" />
+      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(DocumentationFile)" Pack="false" />
+    </ItemGroup>
+  </Target>
+
   <Target Name="AddRefAssemblyToPackage">
     <ItemGroup>
       <TfmSpecificPackageFile Include="$(IntermediateOutputPath)\ref\$(AssemblyName).dll" PackagePath="ref/$(TargetFramework)" />
+      <TfmSpecificPackageFile Include="$(DocumentationFile)" PackagePath="ref/$(TargetFramework)" />
     </ItemGroup>
   </Target>
 
