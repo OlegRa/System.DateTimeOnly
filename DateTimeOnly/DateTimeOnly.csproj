@@ -1,24 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard20;netstandard21;net461;net5;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net5.0;net6.0</TargetFrameworks>
     <AssemblyOriginatorKeyFile>..\DateTimeOnly.snk</AssemblyOriginatorKeyFile>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <ImplicitUsings>false</ImplicitUsings>
     <RootNamespace>System</RootNamespace>
     <AnalysisLevel>latest</AnalysisLevel>
+    <Deterministic>true</Deterministic>
     <SignAssembly>true</SignAssembly>
     <LangVersion>latest</LangVersion>
     <WarningLevel>5</WarningLevel>
     <Nullable>enable</Nullable>
-    <NoWarn>436;NU5128</NoWarn>
+    <NoWarn>436;NU5131</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
-    <!--<GenerateCompatibilitySuppressionFile>true</GenerateCompatibilitySuppressionFile>-->
     <EnableStrictModeForCompatibleFrameworksInPackage>true</EnableStrictModeForCompatibleFrameworksInPackage>
+    <!--<GenerateCompatibilitySuppressionFile>true</GenerateCompatibilitySuppressionFile>-->
     <EnableStrictModeForCompatibleTfms>true</EnableStrictModeForCompatibleTfms>
     <EnablePackageValidation>true</EnablePackageValidation>
   </PropertyGroup>
@@ -56,8 +58,19 @@
     <DebugType>None</DebugType>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard20'">
-    <PackageReference Include="System.Memory" Version="4.5.4" />
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.4" PrivateAssets="compile;contentfiles;build;analyzers" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
+    <Compile Remove="**/*.cs" />
+    <Compile Include="TypeForwarding.cs" />
+    <EmbeddedResource Remove="Resources\Strings.resx" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net6'">
+    <Compile Remove="TypeForwarding.cs" />
+    <None Include="TypeForwarding.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,7 +102,17 @@
 
   <Target Name="RemoveNet6" AfterTargets="_WalkEachTargetPerFramework">
     <ItemGroup>
-      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6\$(AssemblyName).*" Pack="false" />
+      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6.0\$(AssemblyName).*" Pack="false" />
+    </ItemGroup>
+  </Target>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);AddRefAssemblyToPackage</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <Target Name="AddRefAssemblyToPackage">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(IntermediateOutputPath)\ref\$(AssemblyName).dll" PackagePath="ref/$(TargetFramework)" />
     </ItemGroup>
   </Target>
 
