@@ -46,11 +46,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageReleaseNotes>- Backported changes for interpolated strings handling that prevent OOM exceptions in case of invalid format strings.
-- Backported the changes for helping IDEs to highlight format strings in formatting/parsing methods correctly.</PackageReleaseNotes>
-    <AssemblyVersion>6.0.2.1</AssemblyVersion>
-    <FileVersion>6.0.2.1</FileVersion>
-    <Version>6.0.2</Version>
+    <PackageReleaseNotes>
+- Merged PR #8 with changes related to transitive NuGet package usage scenarios. Thanks, @Chryssie for these changes.
+- Reference assemblies and XML documentation added into the resulting NuGet package for better IDE/compiler support.
+    </PackageReleaseNotes>
+    <AssemblyVersion>6.0.3.0</AssemblyVersion>
+    <FileVersion>6.0.3.0</FileVersion>
+    <Version>6.0.3-alpha1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
