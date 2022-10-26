@@ -100,7 +100,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Resources\_._" Pack="true" PackagePath="lib\net6.0\" />
     <None Include="..\Icon.png" Pack="true" PackagePath="icon.png" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
     <None Remove="DateTimeOnly.csproj.DotSettings" />
@@ -112,7 +111,6 @@
 
   <Target Name="RemoveNet6" AfterTargets="_WalkEachTargetPerFramework">
     <ItemGroup>
-      <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(IntermediateOutputPath)net6.0\$(AssemblyName).*" Pack="false" />
       <_BuildOutputInPackage Remove="$(MSBuildThisFileDirectory)$(DocumentationFile)" Pack="false" />
     </ItemGroup>
   </Target>
