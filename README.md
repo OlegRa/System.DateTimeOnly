@@ -1,13 +1,10 @@
 [![Build and Release](https://github.com/OlegRa/System.DateTimeOnly/actions/workflows/release.yml/badge.svg)](https://github.com/OlegRa/System.DateTimeOnly/actions/workflows/release.yml)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/37aac9b569e347d591f1648ff2793092)](https://www.codacy.com/gh/OlegRa/System.DateTimeOnly/dashboard?utm_source=github.com&amp)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/37aac9b569e347d591f1648ff2793092)](https://www.codacy.com/gh/OlegRa/System.DateTimeOnly/dashboard?utm_source=github.com)
 [![Nuget](https://img.shields.io/nuget/v/Portable.System.DateTimeOnly?logo=NuGet)](https://www.nuget.org/packages/Portable.System.DateTimeOnly)
 [![Nuget](https://img.shields.io/nuget/dt/Portable.System.DateTimeOnly?logo=NuGet)](https://www.nuget.org/stats/packages/Portable.System.DateTimeOnly?groupby=Version)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # ![Logo](https://user-images.githubusercontent.com/4800940/174981624-cb9d6acd-ac30-4d46-9118-81425dd4d0fe.png) Portable.System.DateTimeOnly
@@ -34,13 +31,6 @@ This approach, of course, has an obvious disadvantage - in some cases, we have t
     </tr>
   </tbody>
 </table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
