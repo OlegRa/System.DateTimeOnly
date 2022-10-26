@@ -1,4 +1,7 @@
 [![Build and Release](https://github.com/OlegRa/System.DateTimeOnly/actions/workflows/release.yml/badge.svg)](https://github.com/OlegRa/System.DateTimeOnly/actions/workflows/release.yml)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/37aac9b569e347d591f1648ff2793092)](https://www.codacy.com/gh/OlegRa/System.DateTimeOnly/dashboard?utm_source=github.com&amp)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/37aac9b569e347d591f1648ff2793092)](https://www.codacy.com/gh/OlegRa/System.DateTimeOnly/dashboard?utm_source=github.com)
 [![Nuget](https://img.shields.io/nuget/v/Portable.System.DateTimeOnly?logo=NuGet)](https://www.nuget.org/packages/Portable.System.DateTimeOnly)
@@ -22,6 +25,20 @@ This approach, of course, has an obvious disadvantage - in some cases, we have t
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/Chryssie"><img src="https://avatars.githubusercontent.com/u/10442662?v=4?s=100" width="100px;" alt="Chryssie Ta"/><br /><sub><b>Chryssie Ta</b></sub></a><br /><a href="https://github.com/OlegRa/System.DateTimeOnly/commits?author=Chryssie" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
