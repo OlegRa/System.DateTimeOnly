@@ -47,12 +47,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- Merged PR #8 with changes related to transitive NuGet package usage scenarios. Thanks, @Chryssie for these changes.
-- Reference assemblies and XML documentation added into the resulting NuGet package for better IDE/compiler support.
+- Merged PR #10 with fix related to transitive NuGet package runtime issue. Thanks, @Chryssie for this fix.
     </PackageReleaseNotes>
-    <AssemblyVersion>6.0.3.0</AssemblyVersion>
-    <FileVersion>6.0.3.0</FileVersion>
-    <Version>6.0.3-alpha1</Version>
+    <AssemblyVersion>6.0.3.1</AssemblyVersion>
+    <FileVersion>6.0.3.1</FileVersion>
+    <Version>6.0.3-beta1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
