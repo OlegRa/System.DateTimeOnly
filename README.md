@@ -3,9 +3,6 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/37aac9b569e347d591f1648ff2793092)](https://www.codacy.com/gh/OlegRa/System.DateTimeOnly/dashboard?utm_source=github.com)
 [![Nuget](https://img.shields.io/nuget/v/Portable.System.DateTimeOnly?logo=NuGet)](https://www.nuget.org/packages/Portable.System.DateTimeOnly)
 [![Nuget](https://img.shields.io/nuget/dt/Portable.System.DateTimeOnly?logo=NuGet)](https://www.nuget.org/stats/packages/Portable.System.DateTimeOnly?groupby=Version)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # ![Logo](https://user-images.githubusercontent.com/4800940/174981624-cb9d6acd-ac30-4d46-9118-81425dd4d0fe.png) Portable.System.DateTimeOnly
 
@@ -21,18 +18,4 @@ This approach, of course, has an obvious disadvantage - in some cases, we have t
 
 ## Contributors
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center"><a href="https://github.com/Chryssie"><img src="https://avatars.githubusercontent.com/u/10442662?v=4?s=100" width="100px;" alt="Chryssie Ta"/><br /><sub><b>Chryssie Ta</b></sub></a><br /><a href="https://github.com/OlegRa/System.DateTimeOnly/commits?author=Chryssie" title="Code">💻</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+Thanks a lot for all contributors. See the full list of project supporters in the [CONTRIBUTORS](https://github.com/OlegRa/System.DateTimeOnly/blob/master/CONTRIBUTORS.md) file.
