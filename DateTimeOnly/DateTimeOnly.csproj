@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461;net5.0;net6.0</TargetFrameworks>
     <AssemblyOriginatorKeyFile>..\DateTimeOnly.snk</AssemblyOriginatorKeyFile>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
@@ -49,9 +50,9 @@
     <PackageReleaseNotes>
 - Merged PR #10 with fix related to transitive NuGet package runtime issue. Thanks, @Chryssie for this fix.
     </PackageReleaseNotes>
-    <AssemblyVersion>6.0.3.2</AssemblyVersion>
-    <FileVersion>6.0.3.2</FileVersion>
-    <Version>6.0.3-beta2</Version>
+    <AssemblyVersion>6.0.3.3</AssemblyVersion>
+    <FileVersion>6.0.3.3</FileVersion>
+    <Version>6.0.3</Version>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,4 +1,3 @@
-[![License](https://img.shields.io/github/license/OlegRa/System.DateTimeOnly?logo=github)](https://github.com/OlegRa/System.DateTimeOnly/blob/master/LICENSE)
 [![Build](https://github.com/OlegRa/System.DateTimeOnly/actions/workflows/release.yml/badge.svg)](https://github.com/OlegRa/System.DateTimeOnly/actions/workflows/release.yml)
 [![Codacy](https://app.codacy.com/project/badge/Grade/37aac9b569e347d591f1648ff2793092)](https://www.codacy.com/gh/OlegRa/System.DateTimeOnly/dashboard?utm_source=github.com)
 [![Codacy](https://app.codacy.com/project/badge/Coverage/37aac9b569e347d591f1648ff2793092)](https://www.codacy.com/gh/OlegRa/System.DateTimeOnly/dashboard?utm_source=github.com)

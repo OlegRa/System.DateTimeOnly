@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net5</TargetFrameworks>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
     <RootNamespace>System.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
