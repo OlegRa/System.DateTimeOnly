@@ -6,7 +6,9 @@ namespace System.Diagnostics
     internal static class DateTime
     {
         // Number of 100ns ticks per time unit
-        private const long TicksPerMillisecond = 10000;
+        private const int MicrosecondsPerMillisecond = 1000;
+        private const long TicksPerMicrosecond = 10;
+        private const long TicksPerMillisecond = TicksPerMicrosecond * MicrosecondsPerMillisecond;
         private const long TicksPerSecond = TicksPerMillisecond * 1000;
         private const long TicksPerMinute = TicksPerSecond * 60;
         private const long TicksPerHour = TicksPerMinute * 60;
@@ -45,6 +47,23 @@ namespace System.Diagnostics
 
             return ticks;
         }
+        
+        internal static ulong TimeToTicks(int hour, int minute, int second, int millisecond, int microsecond)
+        {
+            ulong ticks = TimeToTicks(hour, minute, second, millisecond);
+
+            if ((uint)microsecond >= MicrosecondsPerMillisecond)
+            {
+                throw new ArgumentOutOfRangeException(nameof(microsecond),
+                    SR.Format(SR.ArgumentOutOfRange_Range, 0, MicrosecondsPerMillisecond - 1));
+            }
+
+            ticks += (uint)microsecond * (uint)TicksPerMicrosecond;
+
+            Debug.Assert(ticks <= MaxTicks, "Input parameters validated already");
+
+            return ticks;
+        }
 
         // Return the tick count corresponding to the given hour, minute, second.
         // Will check the if the parameters are valid.
@@ -59,5 +78,9 @@ namespace System.Diagnostics
             int totalSeconds = hour * 3600 + minute * 60 + second;
             return (uint)totalSeconds * (ulong)TicksPerSecond;
         }
+
+        internal static int Microseconds(this TimeSpan timeSpan) => (int)((timeSpan.Ticks / TicksPerMicrosecond) % 1000);
+
+        internal static int Nanoseconds(this TimeSpan timeSpan) => (int)((timeSpan.Ticks % TicksPerMicrosecond) * 100);
     }
 }

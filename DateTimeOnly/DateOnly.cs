@@ -1,6 +1,5 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
-// ReSharper disable All
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -11,7 +10,11 @@ namespace System
     /// <summary>
     /// Represents dates with values ranging from January 1, 0001 Anno Domini (Common Era) through December 31, 9999 A.D. (C.E.) in the Gregorian calendar.
     /// </summary>
-    public readonly struct DateOnly : IComparable, IComparable<DateOnly>, IEquatable<DateOnly>, ISpanFormattable
+    public readonly struct DateOnly
+        : IComparable,
+          IComparable<DateOnly>,
+          IEquatable<DateOnly>,
+          ISpanFormattable
     {
         private readonly int _dayNumber;
 
@@ -21,7 +24,7 @@ namespace System
         // Maps to December 31 year 9999. The value calculated from "new DateTime(9999, 12, 31).Ticks / TimeSpan.TicksPerDay"
         private const int MaxDayNumber = 3_652_058;
 
-        private static int DayNumberFromDateTime(DateTime dt) => (int)(dt.Ticks / TimeSpan.TicksPerDay);
+        private static int DayNumberFromDateTime(DateTime dt) => (int)((ulong)dt.Ticks / TimeSpan.TicksPerDay);
 
         //private DateTime GetEquivalentDateTime() => DateTime.UnsafeCreate(_dayNumber * TimeSpan.TicksPerDay);
         private DateTime GetEquivalentDateTime() => new DateTime(_dayNumber * TimeSpan.TicksPerDay); // With MaxTicks check
@@ -41,11 +44,6 @@ namespace System
         /// Gets the latest possible date that can be created.
         /// </summary>
         public static DateOnly MaxValue => new DateOnly(MaxDayNumber);
-
-        /// <summary>
-        /// Creates a new instance of the DateOnly with default date value equal to Jan 1st year 1.
-        /// </summary>
-        public DateOnly() => _dayNumber = 0;
 
         /// <summary>
         /// Creates a new instance of the DateOnly structure to the specified year, month, and day.
@@ -96,7 +94,7 @@ namespace System
         /// <summary>
         /// Gets the day of the week represented by this instance.
         /// </summary>
-        public DayOfWeek DayOfWeek => GetEquivalentDateTime().DayOfWeek;
+        public DayOfWeek DayOfWeek => (DayOfWeek)(((uint)_dayNumber + 1) % 7);
 
         /// <summary>
         /// Gets the day of the year represented by this instance.
@@ -424,6 +422,7 @@ namespace System
 
             DateTimeResult dtResult = default;
             dtResult.Init(s);
+
             if (!DateTimeParse.TryParse(s, DateTimeFormatInfo.GetInstance(provider), style, ref dtResult))
             {
                 result = default;
@@ -504,6 +503,7 @@ namespace System
             }
 
             result = new DateOnly(DayNumberFromDateTime(dtResult.parsedDate));
+
             return ParseFailureKind.None;
         }
 
@@ -566,11 +566,11 @@ namespace System
                     }
                 }
 
+                // Create a new result each time to ensure the runs are independent. Carry through
+                // flags from the caller and return the result.
                 DateTimeResult dtResult = default;
                 dtResult.Init(s);
-
-                if (DateTimeParse.TryParseExact(s, format.AsSpan(), dtfiToUse, style, ref dtResult) &&
-                    ((dtResult.flags & ParseFlagsDateMask) == 0))
+                if (DateTimeParse.TryParseExact(s, format.AsSpan(), dtfiToUse, style, ref dtResult) && ((dtResult.flags & ParseFlagsDateMask) == 0))
                 {
                     result = new DateOnly(DayNumberFromDateTime(dtResult.parsedDate));
                     return ParseFailureKind.None;
@@ -825,5 +825,25 @@ namespace System
 
             return DateTimeFormat.TryFormat(GetEquivalentDateTime(), destination, out charsWritten, format, provider);
         }
+
+        //
+        // IParsable
+        //
+
+        /// <inheritdoc cref="IParsable{TSelf}.Parse(string, IFormatProvider?)" />
+        public static DateOnly Parse(string s, IFormatProvider? provider) => Parse(s, provider, DateTimeStyles.None);
+
+        /// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)" />
+        public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out DateOnly result) => TryParse(s, provider, DateTimeStyles.None, out result);
+
+        //
+        // ISpanParsable
+        //
+
+        /// <inheritdoc cref="ISpanParsable{TSelf}.Parse(ReadOnlySpan{char}, IFormatProvider?)" />
+        public static DateOnly Parse(ReadOnlySpan<char> s, IFormatProvider? provider) => Parse(s, provider, DateTimeStyles.None);
+
+        /// <inheritdoc cref="ISpanParsable{TSelf}.TryParse(ReadOnlySpan{char}, IFormatProvider?, out TSelf)" />
+        public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, out DateOnly result) => TryParse(s, provider, DateTimeStyles.None, out result);
     }
 }

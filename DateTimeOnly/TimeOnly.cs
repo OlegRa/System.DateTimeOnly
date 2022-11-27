@@ -1,9 +1,9 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
-// ReSharper disable All
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 using System.Globalization;
 
 namespace System
@@ -11,7 +11,11 @@ namespace System
     /// <summary>
     /// Represents a time of day, as would be read from a clock, within the range 00:00:00 to 23:59:59.9999999.
     /// </summary>
-    public readonly struct TimeOnly : IComparable, IComparable<TimeOnly>, IEquatable<TimeOnly>, ISpanFormattable
+    public readonly struct TimeOnly
+        : IComparable,
+          IComparable<TimeOnly>,
+          IEquatable<TimeOnly>,
+          ISpanFormattable
     {
         // represent the number of ticks map to the time of the day. 1 ticks = 100-nanosecond in time measurements.
         private readonly long _ticks;
@@ -33,16 +37,11 @@ namespace System
         public static TimeOnly MaxValue => new TimeOnly((ulong)MaxTimeTicks);
 
         /// <summary>
-        /// Creates a new instance of the TimeOnly with default time value equal to 00:00
-        /// </summary>
-        public TimeOnly() => _ticks = 0;
-
-        /// <summary>
         /// Initializes a new instance of the timeOnly structure to the specified hour and the minute.
         /// </summary>
         /// <param name="hour">The hours (0 through 23).</param>
         /// <param name="minute">The minutes (0 through 59).</param>
-        public TimeOnly(int hour, int minute) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, 0, 0)) { }
+        public TimeOnly(int hour, int minute) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, 0, 0)) {}
 
         /// <summary>
         /// Initializes a new instance of the timeOnly structure to the specified hour, minute, and second.
@@ -50,7 +49,7 @@ namespace System
         /// <param name="hour">The hours (0 through 23).</param>
         /// <param name="minute">The minutes (0 through 59).</param>
         /// <param name="second">The seconds (0 through 59).</param>
-        public TimeOnly(int hour, int minute, int second) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, second, 0)) { }
+        public TimeOnly(int hour, int minute, int second) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, second, 0)) {}
 
         /// <summary>
         /// Initializes a new instance of the timeOnly structure to the specified hour, minute, second, and millisecond.
@@ -60,6 +59,16 @@ namespace System
         /// <param name="second">The seconds (0 through 59).</param>
         /// <param name="millisecond">The millisecond (0 through 999).</param>
         public TimeOnly(int hour, int minute, int second, int millisecond) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, second, millisecond)) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeOnly"/> structure to the specified hour, minute, second, and millisecond.
+        /// </summary>
+        /// <param name="hour">The hours (0 through 23).</param>
+        /// <param name="minute">The minutes (0 through 59).</param>
+        /// <param name="second">The seconds (0 through 59).</param>
+        /// <param name="millisecond">The millisecond (0 through 999).</param>
+        /// <param name="microsecond">The microsecond (0 through 999).</param>
+        public TimeOnly(int hour, int minute, int second, int millisecond, int microsecond) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, second, millisecond, microsecond)) { }
 
         /// <summary>
         /// Initializes a new instance of the TimeOnly structure using a specified number of ticks.
@@ -97,6 +106,16 @@ namespace System
         /// Gets the millisecond component of the time represented by this instance.
         /// </summary>
         public int Millisecond => new TimeSpan(_ticks).Milliseconds;
+
+        /// <summary>
+        /// Gets the microsecond component of the time represented by this instance.
+        /// </summary>
+        public int Microsecond => new TimeSpan(_ticks).Microseconds();
+
+        /// <summary>
+        /// Gets the nanosecond component of the time represented by this instance.
+        /// </summary>
+        public int Nanosecond => new TimeSpan(_ticks).Nanoseconds();
 
         /// <summary>
         /// Gets the number of ticks that represent the time of this instance.
@@ -340,6 +359,7 @@ namespace System
         /// <param name="provider">An object that supplies culture-specific format information about s.</param>
         /// <param name="style">A bitwise combination of enumeration values that indicates the permitted format of s. A typical value to specify is None.</param>
         /// <returns>An object that is equivalent to the time contained in s, as specified by provider and styles.</returns>
+        /// <inheritdoc cref="ISpanParsable{TSelf}.Parse(ReadOnlySpan{char}, IFormatProvider?)" />
         public static TimeOnly Parse(ReadOnlySpan<char> s, IFormatProvider? provider = default, DateTimeStyles style = DateTimeStyles.None)
         {
             ParseFailureKind result = TryParseInternal(s, provider, style, out TimeOnly timeOnly);
@@ -392,7 +412,7 @@ namespace System
         /// <param name="provider">An object that supplies culture-specific formatting information about s.</param>
         /// <param name="style">A bitwise combination of enumeration values that indicates the permitted format of s. A typical value to specify is None.</param>
         /// <returns>An object that is equivalent to the time contained in s, as specified by format, provider, and style.</returns>
-        public static TimeOnly ParseExact(ReadOnlySpan<char> s, [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] string[] formats, IFormatProvider? provider, DateTimeStyles style = DateTimeStyles.None)
+        public static TimeOnly ParseExact(ReadOnlySpan<char> s, [StringSyntax(StringSyntaxAttribute.TimeOnlyFormat)] string[] formats, IFormatProvider? provider, DateTimeStyles style = DateTimeStyles.None)
         {
             ParseFailureKind result = TryParseExactInternal(s, formats, provider, style, out TimeOnly timeOnly);
             if (result != ParseFailureKind.None)
@@ -488,6 +508,7 @@ namespace System
         /// <param name="style">A bitwise combination of enumeration values that indicates the permitted format of s. A typical value to specify is None.</param>
         /// <param name="result">When this method returns, contains the TimeOnly value equivalent to the time contained in s, if the conversion succeeded, or MinValue if the conversion failed. The conversion fails if the s parameter is empty string, or does not contain a valid string representation of a date. This parameter is passed uninitialized.</param>
         /// <returns>true if the s parameter was converted successfully; otherwise, false.</returns>
+        /// <inheritdoc cref="ISpanParsable{TSelf}.TryParse(ReadOnlySpan{char}, IFormatProvider?, out TSelf)" />
         public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, DateTimeStyles style, out TimeOnly result) =>
                             TryParseInternal(s, provider, style, out result) == ParseFailureKind.None;
         private static ParseFailureKind TryParseInternal(ReadOnlySpan<char> s, IFormatProvider? provider, DateTimeStyles style, out TimeOnly result)
@@ -607,7 +628,7 @@ namespace System
         /// <param name="result">When this method returns, contains the TimeOnly value equivalent to the time contained in s, if the conversion succeeded, or MinValue if the conversion failed. The conversion fails if the s parameter is Empty, or does not contain a valid string representation of a time. This parameter is passed uninitialized.</param>
         /// <returns>true if the s parameter was converted successfully; otherwise, false.</returns>
         public static bool TryParseExact(ReadOnlySpan<char> s, [NotNullWhen(true), StringSyntax(StringSyntaxAttribute.TimeOnlyFormat)] string?[]? formats, IFormatProvider? provider, DateTimeStyles style, out TimeOnly result) =>
-                            TryParseExactInternal(s, formats, provider, style, out result) == ParseFailureKind.None;
+            TryParseExactInternal(s, formats, provider, style, out result) == ParseFailureKind.None;
 
         private static ParseFailureKind TryParseExactInternal(ReadOnlySpan<char> s, string?[]? formats, IFormatProvider? provider, DateTimeStyles style, out TimeOnly result)
         {
@@ -900,5 +921,25 @@ namespace System
 
             return DateTimeFormat.TryFormat(ToDateTime(), destination, out charsWritten, format, provider);
         }
+
+        //
+        // IParsable
+        //
+
+        /// <inheritdoc cref="IParsable{TSelf}.Parse(string, IFormatProvider?)" />
+        public static TimeOnly Parse(string s, IFormatProvider? provider) => Parse(s, provider, DateTimeStyles.None);
+
+        /// <inheritdoc cref="IParsable{TSelf}.TryParse(string?, IFormatProvider?, out TSelf)" />
+        public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out TimeOnly result) => TryParse(s, provider, DateTimeStyles.None, out result);
+
+        //
+        // ISpanParsable
+        //
+
+        /// <inheritdoc cref="ISpanParsable{TSelf}.Parse(ReadOnlySpan{char}, IFormatProvider?)" />
+        public static TimeOnly Parse(ReadOnlySpan<char> s, IFormatProvider? provider) => Parse(s, provider, DateTimeStyles.None);
+
+        /// <inheritdoc cref="ISpanParsable{TSelf}.TryParse(ReadOnlySpan{char}, IFormatProvider?, out TSelf)" />
+        public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, out TimeOnly result) => TryParse(s, provider, DateTimeStyles.None, out result);
     }
 }
