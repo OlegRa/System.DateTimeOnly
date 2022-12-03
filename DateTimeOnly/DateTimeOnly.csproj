@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net462;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net462;net6.0</TargetFrameworks>
     <AssemblyOriginatorKeyFile>..\DateTimeOnly.snk</AssemblyOriginatorKeyFile>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
@@ -26,6 +26,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode>true</RestoreLockedMode>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageProjectUrl>https://github.com/OlegRa/System.DateTimeOnly</PackageProjectUrl>
     <Description>DateOnly and TimeOnly types for .NET versions before 6.0</Description>
     <RepositoryUrl>https://github.com/OlegRa/System.DateTimeOnly</RepositoryUrl>
@@ -47,29 +53,30 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- Merged PR #10 with fix related to transitive NuGet package runtime issue. Thanks, @Chryssie for this fix.
+- The .NET 5 and .NET Framework 4.6.1 TFMs were removed from the target frameworks list - the .NET Standard 2.1 binaries will be used by NuGet.
+- Backported `DateOnly` and `TimeOnly` sources from .NET 7 code base (release version branch) and adopted them for target frameworks.
     </PackageReleaseNotes>
-    <AssemblyVersion>6.0.3.3</AssemblyVersion>
-    <FileVersion>6.0.3.3</FileVersion>
-    <Version>6.0.3</Version>
+    <AssemblyVersion>7.0.0.0</AssemblyVersion>
+    <FileVersion>7.0.0.0</FileVersion>
+    <Version>7.0.0-alpha1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>None</DebugType>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <Compile Remove="**/*.cs" />
     <Compile Include="TypeForwarding.cs" />
     <EmbeddedResource Remove="Resources\Strings.resx" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net6.0' AND '$(TargetFramework)' != 'net7.0'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net6.0'">
     <Compile Remove="TypeForwarding.cs" />
     <None Include="TypeForwarding.cs" />
   </ItemGroup>
