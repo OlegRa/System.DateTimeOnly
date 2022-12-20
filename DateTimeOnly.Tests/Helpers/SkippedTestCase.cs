@@ -11,30 +11,29 @@ namespace System.Tests
     {
         private readonly IXunitTestCase _testCase;
 
-        private readonly String _skippedReason;
-
+        // ReSharper disable once UnusedMember.Global
         public SkippedTestCase()
         {
-            _skippedReason = String.Empty;
+            SkipReason = string.Empty;
             _testCase = this;
         }
 
         internal SkippedTestCase(
-            IXunitTestCase testCase, String skippedReason)
+            IXunitTestCase testCase, string skippedReason)
         {
-            _skippedReason = skippedReason;
+            SkipReason = skippedReason;
             _testCase = testCase;
         }
 
-        public Int32 Timeout => _testCase.Timeout;
+        public string SkipReason { get; }
 
-        public String SkipReason => _skippedReason;
+        public int Timeout => _testCase.Timeout;
 
-        public String UniqueID => _testCase.UniqueID;
+        public string UniqueID => _testCase.UniqueID;
 
         public IMethodInfo Method => _testCase.Method;
 
-        public String DisplayName => _testCase.DisplayName;
+        public string DisplayName => _testCase.DisplayName;
 
         public Exception InitializationException => _testCase.InitializationException;
 
@@ -46,20 +45,20 @@ namespace System.Tests
 
         public ITestMethod TestMethod => _testCase.TestMethod;
 
-        public Dictionary<String, List<String>> Traits => _testCase.Traits;
+        public Dictionary<string, List<string>> Traits => _testCase.Traits;
 
-        public Object[] TestMethodArguments => _testCase.TestMethodArguments;
+        public object[] TestMethodArguments => _testCase.TestMethodArguments;
 
         public void Deserialize(IXunitSerializationInfo info) => _testCase.Deserialize(info);
 
         public Task<RunSummary> RunAsync(
             IMessageSink diagnosticMessageSink,
             IMessageBus messageBus,
-            Object[] constructorArguments,
+            object[] constructorArguments,
             ExceptionAggregator aggregator,
             CancellationTokenSource cancellationTokenSource) =>
             new XunitTestCaseRunner(
-                this, DisplayName, _skippedReason, constructorArguments,
+                this, DisplayName, SkipReason, constructorArguments,
                 TestMethodArguments, messageBus, aggregator, cancellationTokenSource).RunAsync();
 
         public void Serialize(IXunitSerializationInfo info) => _testCase.Serialize(info);

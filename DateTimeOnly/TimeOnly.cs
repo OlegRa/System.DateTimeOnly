@@ -1,6 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+// ReSharper disable All
+
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
@@ -521,7 +523,7 @@ namespace System
 
             DateTimeResult dtResult = default;
 
-            dtResult.Init(s);
+            DateTimeResult.Init(s);
 
             if (!DateTimeParse.TryParse(s, DateTimeFormatInfo.GetInstance(provider), style, ref dtResult))
             {
@@ -590,7 +592,7 @@ namespace System
             }
 
             DateTimeResult dtResult = default;
-            dtResult.Init(s);
+            DateTimeResult.Init(s);
 
             if (!DateTimeParse.TryParseExact(s, format, DateTimeFormatInfo.GetInstance(provider), style, ref dtResult))
             {
@@ -671,7 +673,7 @@ namespace System
                 // Create a new result each time to ensure the runs are independent. Carry through
                 // flags from the caller and return the result.
                 DateTimeResult dtResult = default;
-                dtResult.Init(s);
+                DateTimeResult.Init(s);
                 if (DateTimeParse.TryParseExact(s, format.AsSpan(), dtfiToUse, style, ref dtResult) && ((dtResult.flags & ParseFlagsTimeMask) == 0))
                 {
                     result = new TimeOnly(dtResult.parsedDate.TimeOfDay.Ticks);

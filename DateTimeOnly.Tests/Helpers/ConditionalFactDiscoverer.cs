@@ -21,17 +21,17 @@ namespace System.Tests
         {
             IEnumerable<IXunitTestCase> testCases = base.Discover(discoveryOptions, testMethod, factAttribute);
 
-            if (factAttribute.GetConstructorArguments().SingleOrDefault() is String conditionMemberName)
+            if (factAttribute.GetConstructorArguments().SingleOrDefault() is not string conditionMemberName)
             {
-                var typeInfo = testMethod.Method?.ToRuntimeMethod().DeclaringType?.GetTypeInfo();
-                var methodInfo = typeInfo?.GetDeclaredProperty(conditionMemberName)?.GetMethod;
-                if (methodInfo?.Invoke(null, null) is false)
-                {
-                    return testCases.Select(_ => new SkippedTestCase(_, conditionMemberName));
-                }
+                return testCases;
             }
 
-            return testCases;
+            var typeInfo = testMethod.Method?.ToRuntimeMethod().DeclaringType?.GetTypeInfo();
+            var methodInfo = typeInfo?.GetDeclaredProperty(conditionMemberName)?.GetMethod;
+
+            return methodInfo?.Invoke(null, null) is false
+                ? testCases.Select(_ => new SkippedTestCase(_, conditionMemberName))
+                : testCases;
         }
     }
 }

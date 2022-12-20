@@ -38,9 +38,9 @@ namespace System.Tests
         public static void DateTimeMinValueTimeOnlyParseWorkedTest() => 
             RunInFastParsingLogicContext(TimeOnlyParseWorked,DateTime.MinValue, DateOnlyFormat);
 
-        private static void RunInFastParsingLogicContext(Action<DateTime, String> testMethod, DateTime dt, String format)
+        private static void RunInFastParsingLogicContext(Action<DateTime, string> testMethod, DateTime dt, string format)
         {
-            const String appContextSwitchName = "Portable.System.DateTimeOnly.UseFastParsingLogic";
+            const string appContextSwitchName = "Portable.System.DateTimeOnly.UseFastParsingLogic";
 
             AppContext.SetSwitch(appContextSwitchName, true);
             try
@@ -53,7 +53,7 @@ namespace System.Tests
             }
         }
 
-        private static void TimeOnlyParseWorked(DateTime dt, String format)
+        private static void TimeOnlyParseWorked(DateTime dt, string format)
         {
             var formatted = dt.ToString(format);
             Assert.Equal(TimeOnly.FromDateTime(dt), TimeOnly.Parse(formatted));
@@ -62,10 +62,10 @@ namespace System.Tests
             Assert.True(TimeOnly.TryParse(formatted.AsSpan(), out _));
         }
 
-        private static void DateOnlyParseWorked(DateTime dt, String format) => 
+        private static void DateOnlyParseWorked(DateTime dt, string format) => 
             DateOnlyParseWorked(dt, format, dt);
 
-        private static void DateOnlyParseWorked(DateTime dt, String format, DateTime @default)
+        private static void DateOnlyParseWorked(DateTime dt, string format, DateTime @default)
         {
             var formatted = dt.ToString(format);
             Assert.Equal(DateOnly.FromDateTime(@default), DateOnly.Parse(formatted));
@@ -74,7 +74,7 @@ namespace System.Tests
             Assert.True(DateOnly.TryParse(formatted.AsSpan(), out _));
         }
 
-        private static void TimeOnlyParseFailed(DateTime dt, String format)
+        private static void TimeOnlyParseFailed(DateTime dt, string format)
         {
             var formatted = dt.ToString(format);
             Assert.Throws<FormatException>(() => TimeOnly.Parse(formatted));
@@ -83,7 +83,7 @@ namespace System.Tests
             Assert.False(TimeOnly.TryParse(formatted.AsSpan(), out _));
         }
 
-        private static void DateOnlyParseFailed(DateTime dt, String format)
+        private static void DateOnlyParseFailed(DateTime dt, string format)
         {
             var formatted = dt.ToString(format);
             Assert.Throws<FormatException>(() => DateOnly.Parse(formatted));

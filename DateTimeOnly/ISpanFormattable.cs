@@ -1,6 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+// ReSharper disable All
+
 namespace System
 {
     /// <summary>Provides functionality to format the string representation of an object into a span.</summary>

@@ -5,24 +5,24 @@ namespace System.Tests
 {
     public sealed class ArgumentValidationTests
     {
-        private const String InputArgumentName = "s";
+        private const string InputArgumentName = "s";
 
-        private const String StyleArgumentName = "style";
+        private const string StyleArgumentName = "style";
 
-        private const String FormatArgumentName = "format";
+        private const string FormatArgumentName = "format";
 
         private static readonly DateOnly DateOnlyValue = new ();
 
-        private static readonly String DateOnlyStringValue = DateOnlyValue.ToString();
+        private static readonly string DateOnlyStringValue = DateOnlyValue.ToString();
 
         private static readonly TimeOnly TimeOnlyValue = new ();
 
-        private static readonly String TimeOnlyStringValue = TimeOnlyValue.ToString();
+        private static readonly string TimeOnlyStringValue = TimeOnlyValue.ToString();
 
 #pragma warning disable CS8625
-        private static readonly String NullString = null;
+        private static readonly string NullString = null;
 
-        private static readonly String[] NullStringArray = null;
+        private static readonly string[] NullStringArray = null;
 #pragma warning restore CS8625
 
         [Fact]
@@ -91,7 +91,7 @@ namespace System.Tests
                 () => DateOnly.ParseExact(string.Empty, NullStringArray, CultureInfo.InvariantCulture)).ParamName);
 
             Assert.Throws<FormatException>(() => DateOnly.ParseExact(
-                string.Empty, new []{ String.Empty }, CultureInfo.InvariantCulture));
+                string.Empty, new []{ string.Empty }, CultureInfo.InvariantCulture));
         }
 
         [Fact]
@@ -209,7 +209,7 @@ namespace System.Tests
                 () => TimeOnly.ParseExact(string.Empty, NullStringArray, CultureInfo.InvariantCulture)).ParamName);
 
             Assert.Throws<FormatException>(() => TimeOnly.ParseExact(
-                string.Empty, new []{ String.Empty }, CultureInfo.InvariantCulture));
+                string.Empty, new []{ string.Empty }, CultureInfo.InvariantCulture));
         }
 
         [Fact]

@@ -1,11 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace System
+namespace System;
+
+[SuppressMessage("ReSharper", "InconsistentNaming")]
+internal enum ExceptionArgument
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    internal enum ExceptionArgument
-    {
-        s,
-        format
-    }
+    s,
+    format
 }

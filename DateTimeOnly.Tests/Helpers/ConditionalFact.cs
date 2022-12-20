@@ -8,10 +8,11 @@ namespace System.Tests
     public sealed class ConditionalFactAttribute : FactAttribute
     {
         public ConditionalFactAttribute(
-            String conditionalMemberName) =>
+            string conditionalMemberName) =>
             ConditionalMemberName = conditionalMemberName;
 
         // ReSharper disable once MemberCanBePrivate.Global
-        public String ConditionalMemberName { get; }
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        public string ConditionalMemberName { get; }
     }
 }
