@@ -35,7 +35,7 @@
     <PackageProjectUrl>https://github.com/OlegRa/System.DateTimeOnly</PackageProjectUrl>
     <Description>DateOnly and TimeOnly types for .NET versions before 6.0</Description>
     <RepositoryUrl>https://github.com/OlegRa/System.DateTimeOnly</RepositoryUrl>
-    <Copyright>© 2021-2022 Oleg Rakhmatulin. All rights reserved.</Copyright>
+    <Copyright>© 2021-2023 Oleg Rakhmatulin. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <AssemblyName>Portable.System.DateTimeOnly</AssemblyName>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -56,9 +56,9 @@
 - The .NET 5 and .NET Framework 4.6.1 TFMs were removed from the target frameworks list - the .NET Standard 2.1 binaries will be used by NuGet.
 - Backported `DateOnly` and `TimeOnly` sources from .NET 7 code base (release version branch) and adopted them for target frameworks.
     </PackageReleaseNotes>
-    <AssemblyVersion>7.0.0.0</AssemblyVersion>
-    <FileVersion>7.0.0.0</FileVersion>
-    <Version>7.0.0-alpha1</Version>
+    <AssemblyVersion>7.0.0.1</AssemblyVersion>
+    <FileVersion>7.0.0.1</FileVersion>
+    <Version>7.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
