@@ -53,12 +53,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The .NET 5 and .NET Framework 4.6.1 TFMs were removed from the target frameworks list - the .NET Standard 2.1 binaries will be used by NuGet.
-- Backported `DateOnly` and `TimeOnly` sources from .NET 7 code base (release version branch) and adopted them for target frameworks.
+- The `System.Memory` package upgraded from version 4.5.4 up to version 5.5.5 for better compatibility. Thanks to @akgvn for help!
     </PackageReleaseNotes>
-    <AssemblyVersion>7.0.0.1</AssemblyVersion>
-    <FileVersion>7.0.0.1</FileVersion>
-    <Version>7.0.0</Version>
+    <AssemblyVersion>7.0.1.0</AssemblyVersion>
+    <FileVersion>7.0.1.0</FileVersion>
+    <Version>7.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -87,10 +86,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
