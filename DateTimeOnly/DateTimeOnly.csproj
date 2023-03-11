@@ -82,7 +82,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Memory" Version="4.5.4" PrivateAssets="compile;contentfiles;build;analyzers" />
+    <PackageReference Include="System.Memory" Version="4.5.5" PrivateAssets="compile;contentfiles;build;analyzers" />
   </ItemGroup>
 
   <ItemGroup>
