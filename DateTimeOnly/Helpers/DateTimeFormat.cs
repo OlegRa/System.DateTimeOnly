@@ -32,7 +32,7 @@ internal static class DateTimeFormat
     }
 
     // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Global
-    internal static bool IsValidCustomDateFormat(ReadOnlySpan<char> format, bool throwOnError)
+    internal static bool IsValidCustomDateOnlyFormat(ReadOnlySpan<char> format, bool throwOnError)
     {
         var i = 0;
 
@@ -103,7 +103,7 @@ internal static class DateTimeFormat
     }
 
     // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Global
-    internal static bool IsValidCustomTimeFormat(ReadOnlySpan<char> format, bool throwOnError)
+    internal static bool IsValidCustomTimeOnlyFormat(ReadOnlySpan<char> format, bool throwOnError)
     {
         var length = format.Length;
         var i = 0;
