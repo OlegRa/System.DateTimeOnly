@@ -31,6 +31,12 @@ internal static class DateTime
 
     private const long MaxTicks = DaysTo10000 * TicksPerDay - 1;
 
+    private const uint EafMultiplier = (uint)(((1UL << 32) + DaysPer4Years - 1) / DaysPer4Years);   // 2,939,745
+    private const uint EafDivider = EafMultiplier * 4;                                              // 11,758,980
+
+    private const long TicksPer6Hours = TicksPerHour * 6;
+    private const int March1BasedDayOfNewYear = 306;              // Days between March 1 and January 1
+
     internal static ulong TimeToTicks(int hour, int minute, int second, int millisecond)
     {
         var ticks = TimeToTicks(hour, minute, second);
@@ -82,4 +88,25 @@ internal static class DateTime
     internal static int Microseconds(this TimeSpan timeSpan) => (int)(timeSpan.Ticks / TicksPerMicrosecond % 1000);
 
     internal static int Nanoseconds(this TimeSpan timeSpan) => (int)(timeSpan.Ticks % TicksPerMicrosecond * 100);
+
+    internal static void GetDate(this System.DateTime dateTime, out int year, out int month, out int day)
+    {
+        // y100 = number of whole 100-year periods since 3/1/0000
+        // r1 = (day number within 100-year period) * 4
+        long y100 = Math.DivRem(((int)(dateTime.Ticks / TicksPer6Hours) | 3U) + 1224, DaysPer400Years, out long r1);
+        ulong u2 = (ulong)Math.BigMul((int)EafMultiplier, (int)r1 | 3);
+        ushort daySinceMarch1 = (ushort)((uint)u2 / EafDivider);
+        int n3 = 2141 * daySinceMarch1 + 197913;
+        year = (int)(100 * y100 + (uint)(u2 >> 32));
+        // compute month and day
+        month = (ushort)(n3 >> 16);
+        day = (ushort)n3 / 2141 + 1;
+
+        // rollover December 31
+        if (daySinceMarch1 >= March1BasedDayOfNewYear)
+        {
+            ++year;
+            month -= 12;
+        }
+    }
 }

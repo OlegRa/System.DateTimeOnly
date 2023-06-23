@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://learn.microsoft.com/en-us/dotnet/fundamentals/package-validation/diagnostic-ids -->
 <Suppressions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.DateOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:System.DateOnly.Parse(System.ReadOnlySpan{System.Char},System.IFormatProvider)</Target>
@@ -27,6 +34,30 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:System.TimeOnly.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@,System.Int32@)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@)</Target>
     <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
     <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
   </Suppression>
