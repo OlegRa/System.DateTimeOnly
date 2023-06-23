@@ -60,13 +60,14 @@ internal static class DateTimeParse
 }
 
 
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 internal enum ParseFailureKind
 {
     None = 0,
-    FormatWithParameter = 3,
-    FormatWithOriginalDateTime = 4,
-    FormatWithFormatSpecifier = 5,
-    WrongParts = 8  // DateOnly and TimeOnly specific value. Unrelated date parts when parsing DateOnly or Unrelated time parts when parsing TimeOnly
+    Argument_InvalidDateStyles = 3,
+    Format_BadDateOnly = 4,
+    Argument_BadFormatSpecifier = 5,
+    Format_DateTimeOnlyContainsNoneDateParts = 8  // DateOnly and TimeOnly specific value. Unrelated date parts when parsing DateOnly or Unrelated time parts when parsing TimeOnly
 }
 
 [Flags]
