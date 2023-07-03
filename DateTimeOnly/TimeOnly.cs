@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Globalization;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace System
 {
@@ -284,10 +285,12 @@ namespace System
         /// Deconstructed parameter for <see cref="Minute"/>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out int hour, out int minute)
         {
-            hour = Hour;
-            minute = Minute;
+            var ts = new TimeSpan(_ticks);
+            hour = ts.Hours;
+            minute = ts.Minutes;
         }
 
         /// <summary>
@@ -303,10 +306,13 @@ namespace System
         /// Deconstructed parameter for <see cref="Second"/>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out int hour, out int minute, out int second)
         {
-            (hour, minute) = this;
-            second = Second;
+            var ts = new TimeSpan(_ticks);
+            hour = ts.Hours;
+            minute = ts.Minutes;
+            second = ts.Seconds;
         }
 
         /// <summary>
@@ -325,10 +331,14 @@ namespace System
         /// Deconstructed parameter for <see cref="Millisecond"/>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out int hour, out int minute, out int second, out int millisecond)
         {
-            (hour, minute, second) = this;
-            millisecond = Millisecond;
+            var ts = new TimeSpan(_ticks);
+            hour = ts.Hours;
+            minute = ts.Minutes;
+            second = ts.Seconds;
+            millisecond = ts.Milliseconds;
         }
 
         /// <summary>
@@ -350,10 +360,15 @@ namespace System
         /// Deconstructed parameter for <see cref="Microsecond"/>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out int hour, out int minute, out int second, out int millisecond, out int microsecond)
         {
-            (hour, minute, second, millisecond) = this;
-            microsecond = Microsecond;
+            var ts = new TimeSpan(_ticks);
+            hour = ts.Hours;
+            minute = ts.Minutes;
+            second = ts.Seconds;
+            millisecond = ts.Milliseconds;
+            microsecond = ts.Microseconds();
         }
 
         /// <summary>

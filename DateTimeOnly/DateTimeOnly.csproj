@@ -53,11 +53,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The changes from .NET 8.0 versions of `DateOnly` and `TimeOnly` classes backported into this library.
+- The `TimeOnly` deconstruction methods implementation changed for better performance (experimental).
     </PackageReleaseNotes>
-    <AssemblyVersion>8.0.0.0</AssemblyVersion>
-    <FileVersion>8.0.0.0</FileVersion>
-    <Version>8.0.0-alpha1</Version>
+    <AssemblyVersion>8.0.0.1</AssemblyVersion>
+    <FileVersion>8.0.0.1</FileVersion>
+    <Version>8.0.0-alpha2</Version>
   </PropertyGroup>
 
   <PropertyGroup>
