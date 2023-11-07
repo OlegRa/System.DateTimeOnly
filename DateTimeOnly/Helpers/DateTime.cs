@@ -93,20 +93,23 @@ internal static class DateTime
     {
         // y100 = number of whole 100-year periods since 3/1/0000
         // r1 = (day number within 100-year period) * 4
-        long y100 = Math.DivRem(((int)(dateTime.Ticks / TicksPer6Hours) | 3U) + 1224, DaysPer400Years, out long r1);
-        ulong u2 = (ulong)Math.BigMul((int)EafMultiplier, (int)r1 | 3);
-        ushort daySinceMarch1 = (ushort)((uint)u2 / EafDivider);
-        int n3 = 2141 * daySinceMarch1 + 197913;
+        var y100 = Math.DivRem(((int)(dateTime.Ticks / TicksPer6Hours) | 3U) + 1224, DaysPer400Years, out var r1);
+        var u2 = (ulong)Math.BigMul((int)EafMultiplier, (int)r1 | 3);
+        var daySinceMarch1 = (ushort)((uint)u2 / EafDivider);
+        var n3 = 2141 * daySinceMarch1 + 197913;
         year = (int)(100 * y100 + (uint)(u2 >> 32));
         // compute month and day
         month = (ushort)(n3 >> 16);
+        // ReSharper disable once IntVariableOverflowInUncheckedContext
         day = (ushort)n3 / 2141 + 1;
 
         // rollover December 31
-        if (daySinceMarch1 >= March1BasedDayOfNewYear)
+        if (daySinceMarch1 < March1BasedDayOfNewYear)
         {
-            ++year;
-            month -= 12;
+            return;
         }
+
+        ++year;
+        month -= 12;
     }
 }

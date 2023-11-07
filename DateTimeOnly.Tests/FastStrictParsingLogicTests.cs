@@ -2,6 +2,7 @@
 
 namespace System.Tests
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class FastStrictParsingLogicTests
     {
         private const string DateOnlyFormat = "d";

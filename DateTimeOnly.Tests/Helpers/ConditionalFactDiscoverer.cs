@@ -30,7 +30,7 @@ namespace System.Tests
             var methodInfo = typeInfo?.GetDeclaredProperty(conditionMemberName)?.GetMethod;
 
             return methodInfo?.Invoke(null, null) is false
-                ? testCases.Select(_ => new SkippedTestCase(_, conditionMemberName))
+                ? testCases.Select(testCase => new SkippedTestCase(testCase, conditionMemberName))
                 : testCases;
         }
     }
