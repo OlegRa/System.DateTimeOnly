@@ -53,11 +53,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The `TimeOnly` deconstruction methods implementation changed for better performance (experimental).
+- Cleaned up the codebase using the latest R# settings before the final release.
     </PackageReleaseNotes>
-    <AssemblyVersion>8.0.0.1</AssemblyVersion>
-    <FileVersion>8.0.0.1</FileVersion>
-    <Version>8.0.0-alpha2</Version>
+    <AssemblyVersion>8.0.0.2</AssemblyVersion>
+    <FileVersion>8.0.0.2</FileVersion>
+    <Version>8.0.0-rc1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
