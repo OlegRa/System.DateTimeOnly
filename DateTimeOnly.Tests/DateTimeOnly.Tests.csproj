@@ -6,6 +6,7 @@
     <RootNamespace>System.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
+    <NoWarn>NU1701</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
