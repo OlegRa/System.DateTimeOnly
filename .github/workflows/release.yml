@@ -35,7 +35,7 @@ jobs:
 
     steps:
     - name: Load Packages
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: packages
 
