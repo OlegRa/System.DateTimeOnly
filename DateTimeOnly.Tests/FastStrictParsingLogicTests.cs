@@ -56,7 +56,7 @@ namespace System.Tests
 
         private static void TimeOnlyParseWorked(DateTime dt, string format)
         {
-            var formatted = dt.ToString(format);
+            string formatted = dt.ToString(format);
             Assert.Equal(TimeOnly.FromDateTime(dt), TimeOnly.Parse(formatted));
             Assert.Equal(TimeOnly.FromDateTime(dt), TimeOnly.Parse(formatted.AsSpan()));
             Assert.True(TimeOnly.TryParse(formatted, out _));
@@ -68,7 +68,7 @@ namespace System.Tests
 
         private static void DateOnlyParseWorked(DateTime dt, string format, DateTime @default)
         {
-            var formatted = dt.ToString(format);
+            string formatted = dt.ToString(format);
             Assert.Equal(DateOnly.FromDateTime(@default), DateOnly.Parse(formatted));
             Assert.Equal(DateOnly.FromDateTime(@default), DateOnly.Parse(formatted.AsSpan()));
             Assert.True(DateOnly.TryParse(formatted, out _));
@@ -77,7 +77,7 @@ namespace System.Tests
 
         private static void TimeOnlyParseFailed(DateTime dt, string format)
         {
-            var formatted = dt.ToString(format);
+            string formatted = dt.ToString(format);
             Assert.Throws<FormatException>(() => TimeOnly.Parse(formatted));
             Assert.Throws<FormatException>(() => TimeOnly.Parse(formatted.AsSpan()));
             Assert.False(TimeOnly.TryParse(formatted, out _));
@@ -86,7 +86,7 @@ namespace System.Tests
 
         private static void DateOnlyParseFailed(DateTime dt, string format)
         {
-            var formatted = dt.ToString(format);
+            string formatted = dt.ToString(format);
             Assert.Throws<FormatException>(() => DateOnly.Parse(formatted));
             Assert.Throws<FormatException>(() => DateOnly.Parse(formatted.AsSpan()));
             Assert.False(DateOnly.TryParse(formatted, out _));

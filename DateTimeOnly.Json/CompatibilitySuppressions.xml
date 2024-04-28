@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://learn.microsoft.com/en-us/dotnet/fundamentals/package-validation/diagnostic-ids -->
+<Suppressions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Suppression>
+    <DiagnosticId>CP0001</DiagnosticId>
+    <Target>T:System.Text.Json.DateOnlyConverter</Target>
+    <Left>ref/netstandard2.0/Portable.System.DateTimeOnly.Json.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.Json.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0001</DiagnosticId>
+    <Target>T:System.Text.Json.TimeOnlyConverter</Target>
+    <Left>ref/netstandard2.0/Portable.System.DateTimeOnly.Json.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.Json.dll</Right>
+  </Suppression>
+</Suppressions>

@@ -11,22 +11,22 @@ internal static class DateTimeParse
 {
     private const string AppContextSwitchName = "Portable.System.DateTimeOnly.UseFastParsingLogic";
 
-    private static readonly char[] ValidDateOnlyFormatSpecifiers = { 'd', 'D', 'm', 'M', 'y', 'Y' };
+    private static readonly char[] ValidDateOnlyFormatSpecifiers = ['d', 'D', 'm', 'M', 'y', 'Y'];
 
-    private static readonly char[] ValidTimeOnlyFormatSpecifiers = { 't', 'T' };
+    private static readonly char[] ValidTimeOnlyFormatSpecifiers = ['t', 'T'];
 
     internal static bool TryParseExact(ReadOnlySpan<char> s, ReadOnlySpan<char> format, DateTimeFormatInfo dtfi, DateTimeStyles style, ref DateTimeResult result)
     {
-        var success = DateTime.TryParseExact(s.ToString(), format.ToString(), dtfi, style, out var dt);
+        bool success = DateTime.TryParseExact(s.ToString(), format.ToString(), dtfi, style, out DateTime dt);
         result.parsedDate = dt;
         return success;
     }
 
     internal static bool TryParse(ReadOnlySpan<char> s, DateTimeFormatInfo dtfi, DateTimeStyles styles, ref DateTimeResult result)
     {
-        var success = DateTime.TryParse(
+        bool success = DateTime.TryParse(
             s.ToString(), dtfi, styles | DateTimeStyles.NoCurrentDateDefault,
-            out var dt);
+            out DateTime dt);
         result.parsedDate = dt;
 
         if (!success || IsFastParsingLogicEnabled())
@@ -50,7 +50,7 @@ internal static class DateTimeParse
     }
 
     private static bool IsFastParsingLogicEnabled() =>
-        AppContext.TryGetSwitch(AppContextSwitchName, out var isEnabled) && isEnabled;
+        AppContext.TryGetSwitch(AppContextSwitchName, out bool isEnabled) && isEnabled;
 
     private static string[] GetValidDateOnlyFormatStrings(DateTimeFormatInfo dtfi) =>
         ValidDateOnlyFormatSpecifiers.SelectMany(dtfi.GetAllDateTimePatterns).ToArray();
@@ -59,8 +59,9 @@ internal static class DateTimeParse
         ValidTimeOnlyFormatSpecifiers.SelectMany(dtfi.GetAllDateTimePatterns).ToArray();
 }
 
-
+#pragma warning disable IDE0079
 [SuppressMessage("ReSharper", "InconsistentNaming")]
+#pragma warning restore IDE0079
 internal enum ParseFailureKind
 {
     None = 0,
@@ -88,7 +89,9 @@ internal enum ParseFlags
     UtcSortPattern = 0x00004000
 }
 
+#pragma warning disable IDE0079
 [SuppressMessage("ReSharper", "InconsistentNaming")]
+#pragma warning restore IDE0079
 internal ref struct DateTimeResult
 {
 #pragma warning disable 649

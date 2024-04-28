@@ -6,38 +6,35 @@
 namespace System.Diagnostics.CodeAnalysis;
 
 /// <summary>Specifies that when a method returns <see cref="ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+/// <remarks>Initializes the attribute with the specified return value condition.</remarks>
+/// <param name="returnValue">
+/// The return value condition. If the method returns this value, the associated parameter may be null.
+/// </param>
 [AttributeUsage (AttributeTargets.Parameter)]
-internal sealed class MaybeNullWhenAttribute : Attribute
+internal sealed class MaybeNullWhenAttribute(bool returnValue) : Attribute
 {
-    /// <summary>Initializes the attribute with the specified return value condition.</summary>
-    /// <param name="returnValue">
-    /// The return value condition. If the method returns this value, the associated parameter may be null.
-    /// </param>
-    public MaybeNullWhenAttribute (bool returnValue) => ReturnValue = returnValue;
 
     /// <summary>Gets the return value condition.</summary>
     // ReSharper disable once MemberCanBePrivate.Global
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    public bool ReturnValue { get; }
+    public bool ReturnValue { get; } = returnValue;
 }
 
 /// <summary>Specifies that when a method returns <see cref="ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+/// <remarks>Initializes the attribute with the specified return value condition.</remarks>
+/// <param name="returnValue">
+/// The return value condition. If the method returns this value, the associated parameter will not be null.
+/// </param>
 [AttributeUsage(AttributeTargets.Parameter)]
-internal sealed class NotNullWhenAttribute : Attribute
+internal sealed class NotNullWhenAttribute(bool returnValue) : Attribute
 {
-    /// <summary>Initializes the attribute with the specified return value condition.</summary>
-    /// <param name="returnValue">
-    /// The return value condition. If the method returns this value, the associated parameter will not be null.
-    /// </param>
-    public NotNullWhenAttribute(bool returnValue) => ReturnValue = returnValue;
 
     /// <summary>Gets the return value condition.</summary>
     // ReSharper disable once MemberCanBePrivate.Global
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    public bool ReturnValue { get; }
+    public bool ReturnValue { get; } = returnValue;
 }
 
 /// <summary>Applied to a method that will never return under any circumstance.</summary>
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-internal sealed class DoesNotReturnAttribute : Attribute
-{ }
+internal sealed class DoesNotReturnAttribute : Attribute;

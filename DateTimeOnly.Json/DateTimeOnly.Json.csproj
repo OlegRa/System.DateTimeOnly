@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net462;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <AssemblyOriginatorKeyFile>..\DateTimeOnly.snk</AssemblyOriginatorKeyFile>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RootNamespace>System.Text.Json</RootNamespace>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <ImplicitUsings>false</ImplicitUsings>
-    <RootNamespace>System</RootNamespace>
     <AnalysisLevel>latest</AnalysisLevel>
     <Deterministic>true</Deterministic>
     <SignAssembly>true</SignAssembly>
     <LangVersion>latest</LangVersion>
     <WarningLevel>5</WarningLevel>
     <Nullable>enable</Nullable>
-    <NoWarn>436;NU5131</NoWarn>
+    <NoWarn>NU5131</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -37,14 +37,14 @@
     <RepositoryUrl>https://github.com/OlegRa/System.DateTimeOnly</RepositoryUrl>
     <Copyright>© 2021-2024 Oleg Rakhmatulin. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <AssemblyName>Portable.System.DateTimeOnly</AssemblyName>
+    <AssemblyName>Portable.System.DateTimeOnly.Json</AssemblyName>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>DateOnly TimeOnly</PackageTags>
+    <PackageTags>DateOnly TimeOnly JSON</PackageTags>
     <IncludeSymbols>true</IncludeSymbols>
     <Authors>Oleg Rakhmatulin</Authors>
     <PackageIcon>icon.png</PackageIcon>
@@ -52,38 +52,29 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- Cleaned up the codebase using the latest R# settings before the final release.
+- Initial varsersion NuGet package - test build, publishing, and usage.
     </PackageReleaseNotes>
-    <AssemblyVersion>8.0.0.3</AssemblyVersion>
-    <FileVersion>8.0.0.3</FileVersion>
-    <Version>8.0.0</Version>
+    <AssemblyVersion>8.0.0.0</AssemblyVersion>
+    <FileVersion>8.0.0.0</FileVersion>
+    <Version>8.0.0-alpha1</Version>
   </PropertyGroup>
-
+  
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>None</DebugType>
-  </PropertyGroup>
-
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <Compile Remove="**/*.cs" />
-    <Compile Include="TypeForwarding.cs" />
+    <Compile Include="*Attribute.cs" />
     <EmbeddedResource Remove="Resources\Strings.resx" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net6.0'">
-    <Compile Remove="TypeForwarding.cs" />
-    <None Include="TypeForwarding.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) OR '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Memory" Version="4.5.5" PrivateAssets="compile;contentfiles;build;analyzers" />
+    <PackageReference Include="Portable.System.DateTimeOnly" Version="8.0.0" PrivateAssets="compile;contentfiles;build;analyzers" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.3" PrivateAssets="compile;contentfiles;build;analyzers" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
@@ -102,7 +93,7 @@
   <ItemGroup>
     <None Include="..\Icon.png" Pack="true" PackagePath="icon.png" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
-    <None Remove="DateTimeOnly.csproj.DotSettings" />
+    <None Remove="DateTimeOnly.Json.csproj.DotSettings" />
   </ItemGroup>
 
   <PropertyGroup>

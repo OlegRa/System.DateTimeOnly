@@ -263,7 +263,7 @@ internal static class DateTimeFormat
     }
 
     /// <summary>
-    /// Writes a value [ 00 .. 99 ] to the buffer starting at the specified offset.
+    /// Writes a value [ 00 … 99 ] to the buffer starting at the specified offset.
     /// This method performs best when the starting index is a constant literal.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -278,7 +278,7 @@ internal static class DateTimeFormat
     }
 
     /// <summary>
-    /// Writes a value [ 0000 .. 9999 ] to the buffer starting at the specified offset.
+    /// Writes a value [ 0000 … 9999 ] to the buffer starting at the specified offset.
     /// This method performs best when the starting index is a constant literal.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

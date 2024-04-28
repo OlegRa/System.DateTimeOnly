@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{B3
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeOnly.Json", "DateTimeOnly.Json\DateTimeOnly.Json.csproj", "{0E872FD1-BDF5-40A0-AAF2-D42CAC8DCE5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B49C4398-1039-4B06-818C-5557944CEFFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B49C4398-1039-4B06-818C-5557944CEFFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B49C4398-1039-4B06-818C-5557944CEFFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E872FD1-BDF5-40A0-AAF2-D42CAC8DCE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E872FD1-BDF5-40A0-AAF2-D42CAC8DCE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E872FD1-BDF5-40A0-AAF2-D42CAC8DCE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E872FD1-BDF5-40A0-AAF2-D42CAC8DCE5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

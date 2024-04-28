@@ -64,7 +64,7 @@ namespace System.Tests
         public void DateOnlyTryParseValidationWorkedTest()
         {
             Assert.False(DateOnly.TryParse(
-                null, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var dateOnly));
+                null, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateOnly dateOnly));
             Assert.Equal(default, dateOnly);
 
             Assert.False(DateOnly.TryParse("aa-bb-cc", out dateOnly));
@@ -98,7 +98,7 @@ namespace System.Tests
         public void DateOnlyTryParseExactValidationWorkedTest()
         {
             Assert.False(DateOnly.TryParseExact(
-                null, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out var dateOnly));
+                null, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out DateOnly dateOnly));
             Assert.Equal(default, dateOnly);
 
             Assert.False(DateOnly.TryParseExact(
@@ -182,7 +182,7 @@ namespace System.Tests
         public void TimeOnlyTryParseValidationWorkedTest()
         {
             Assert.False(TimeOnly.TryParse(
-                null, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var timeOnly));
+                null, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out TimeOnly timeOnly));
             Assert.Equal(default, timeOnly);
 
             Assert.False(TimeOnly.TryParse("aa:bb", out timeOnly));
@@ -216,7 +216,7 @@ namespace System.Tests
         public void TimeOnlyTryParseExactValidationWorkedTest()
         {
             Assert.False(TimeOnly.TryParseExact(
-                null, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out var timeOnly));
+                null, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out TimeOnly timeOnly));
             Assert.Equal(default, timeOnly);
 
             Assert.False(TimeOnly.TryParseExact(
