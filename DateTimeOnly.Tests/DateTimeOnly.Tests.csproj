@@ -1,15 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5</TargetFrameworks>
-    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <TargetFrameworks>net481</TargetFrameworks>
     <RootNamespace>System.Tests</RootNamespace>
+    <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <NoWarn>NU1701</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="xunit" Version="2.8.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.0">
@@ -24,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DateTimeOnly\DateTimeOnly.csproj" />
+    <ProjectReference Include="..\DateTimeOnly.Json\DateTimeOnly.Json.csproj" />
   </ItemGroup>
 
 </Project>

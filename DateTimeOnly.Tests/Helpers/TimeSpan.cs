@@ -1,10 +1,9 @@
 ﻿// ReSharper disable once CheckNamespace
 
-namespace System.Tests.Diagnostics
+namespace System.Tests.Diagnostics;
+
+internal static class TimeSpan
 {
-    internal static class TimeSpan
-    {
-        internal const long TicksPerMicrosecond = 10;
-        internal const long NanosecondsPerTick = 100;
-    }
+    internal const long TicksPerMicrosecond = 10;
+    internal const long NanosecondsPerTick = 100;
 }

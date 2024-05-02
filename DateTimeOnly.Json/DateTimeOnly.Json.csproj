@@ -70,7 +70,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net6.0'">
-    <PackageReference Include="Portable.System.DateTimeOnly" Version="8.0.0" PrivateAssets="compile;contentfiles;build;analyzers" />
+    <ProjectReference Include="..\DateTimeOnly\DateTimeOnly.csproj" PrivateAssets="compile;contentfiles;build;analyzers" />
   </ItemGroup>
 
   <ItemGroup>
