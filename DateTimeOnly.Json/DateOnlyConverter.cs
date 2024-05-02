@@ -29,6 +29,18 @@ public sealed class DateOnlyConverter : JsonConverter<DateOnly>
             ThrowHelper.ThrowInvalidOperationException_ExpectedString(reader.TokenType);
         }
 
+        return ReadCore(ref reader);
+    }
+
+    /// <inheritdoc />
+    public override DateOnly ReadAsPropertyName(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        Debug.Assert(reader.TokenType == JsonTokenType.PropertyName);
+        return ReadCore(ref reader);
+    }
+
+    private static DateOnly ReadCore(ref Utf8JsonReader reader)
+    {
         if (!JsonHelpers.IsInRangeInclusive(reader.ValueLength(), FormatLength, MaxEscapedFormatLength))
         {
             ThrowHelper.ThrowFormatException(DataType.DateOnly);
@@ -57,10 +69,27 @@ public sealed class DateOnlyConverter : JsonConverter<DateOnly>
     /// <inheritdoc />
     public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
     {
+#if NET8_0_OR_GREATER
+        Span<byte> buffer = stackalloc byte[FormatLength];
+#else
         Span<char> buffer = stackalloc char[FormatLength];
+#endif
         // ReSharper disable once RedundantAssignment
         bool formattedSuccessfully = value.TryFormat(buffer, out int charsWritten, "O".AsSpan(), CultureInfo.InvariantCulture);
         Debug.Assert(formattedSuccessfully && charsWritten == FormatLength);
         writer.WriteStringValue(buffer);
     }
-}
+
+    /// <inheritdoc />
+    public override void WriteAsPropertyName(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
+    {
+#if NET8_0_OR_GREATER
+        Span<byte> buffer = stackalloc byte[FormatLength];
+#else
+        Span<char> buffer = stackalloc char[FormatLength];
+#endif
+        // ReSharper disable once RedundantAssignment
+        bool formattedSuccessfully = value.TryFormat(buffer, out int charsWritten, "O".AsSpan(), CultureInfo.InvariantCulture);
+        Debug.Assert(formattedSuccessfully && charsWritten == FormatLength);
+        writer.WritePropertyName(buffer);
+    }}
