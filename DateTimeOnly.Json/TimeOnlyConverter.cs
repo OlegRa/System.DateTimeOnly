@@ -8,8 +8,13 @@ using System.Text.Json.Serialization;
 namespace System.Text.Json;
 
 /// <summary>
-/// 
+/// Custom converter for handling the <see cref="TimeOnly"/> data type with the <see href="https://docs.microsoft.com/dotnet/api/system.text.json">System.Text.Json</see> library.
 /// </summary>
+/// <remarks>
+/// This class backported from:
+/// <see href="https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Serialization/Converters/Value/TimeOnlyConverter.cs">
+/// System.Text.Json.Serialization.Converters.TimeOnlyConverter</see>
+/// </remarks>
 public sealed class TimeOnlyConverter : JsonConverter<TimeOnly>
 {
     private const int MinimumTimeOnlyFormatLength = 8; // hh:mm:ss

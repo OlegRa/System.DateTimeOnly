@@ -13,6 +13,10 @@ namespace System
     /// <summary>
     /// Represents dates with values ranging from January 1, 0001 Anno Domini (Common Era) through December 31, 9999 A.D. (C.E.) in the Gregorian calendar.
     /// </summary>
+    /// <remarks>
+    /// This data type backported from the original BCL implementation:
+    /// <see href="https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/DateOnly.cs">System.DateOnly</see>
+    /// </remarks>
     public readonly struct DateOnly
         : IComparable,
           IComparable<DateOnly>,

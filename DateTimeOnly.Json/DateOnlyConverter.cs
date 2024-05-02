@@ -8,8 +8,13 @@ using System.Text.Json.Serialization;
 namespace System.Text.Json;
 
 /// <summary>
-/// 
+/// Custom converter for handling the <see cref="DateOnly"/> data type with the <see href="https://docs.microsoft.com/dotnet/api/system.text.json">System.Text.Json</see> library.
 /// </summary>
+/// <remarks>
+/// This class backported from:
+/// <see href="https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Serialization/Converters/Value/DateOnlyConverter.cs">
+/// System.Text.Json.Serialization.Converters.DateOnlyConverter</see>
+/// </remarks>
 public sealed class DateOnlyConverter : JsonConverter<DateOnly>
 {
     private const int FormatLength = 10; // YYYY-MM-DD

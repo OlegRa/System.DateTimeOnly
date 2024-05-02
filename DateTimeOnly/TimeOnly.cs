@@ -5,7 +5,6 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
 using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -15,6 +14,10 @@ namespace System
     /// <summary>
     /// Represents a time of day, as would be read from a clock, within the range 00:00:00 to 23:59:59.9999999.
     /// </summary>
+    /// <remarks>
+    /// This data type backported from the original BCL implementation:
+    /// <see href="https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/TimeOnly.cs">System.TimeOnly</see>
+    /// </remarks>
     public readonly struct TimeOnly
         : IComparable,
           IComparable<TimeOnly>,

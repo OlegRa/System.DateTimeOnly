@@ -5,7 +5,18 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace System.Text.Json;
 
-/// <inheritdoc />
+#if NET6_0_OR_GREATER
+/// <summary>
+/// Attribute for handling the <see cref="TimeOnly"/> data type with the <see href="https://docs.microsoft.com/dotnet/api/system.text.json">System.Text.Json</see> library.
+/// At run-time selecting the built-in <see cref="JsonMetadataServices.TimeOnlyConverter"/> converter using the converters factory method.
+/// </summary>
+#else
+/// <summary>
+/// Attribute for handling the <see cref="TimeOnly"/> data type with the <see href="https://docs.microsoft.com/dotnet/api/system.text.json">System.Text.Json</see> library.
+/// At run-time selecting the backported <see cref="TimeOnlyConverter"/> converter using the converters factory method.
+/// </summary>
+#endif
+// ReSharper disable once UnusedType.Global
 public sealed class TimeOnlyConverterAttribute : JsonConverterAttribute
 {
     /// <inheritdoc />
