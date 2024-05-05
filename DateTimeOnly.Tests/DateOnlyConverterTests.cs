@@ -87,7 +87,9 @@ public sealed class DateOnlyConverterTests
     public static void DateOnly_Read_Failure(string json, bool addQuotes = true)
     {
         if (addQuotes)
+        {
             json = $"\"{json}\"";
+        }
 
         Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<DateOnly>(json, JsonSerializerOptions));
     }

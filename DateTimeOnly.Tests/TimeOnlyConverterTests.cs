@@ -70,7 +70,9 @@ public sealed class TimeOnlyConverterTests
     public static void TimeOnly_Read_Failure(string json, bool addQuotes = true)
     {
         if (addQuotes)
+        {
             json = $"\"{json}\"";
+        }
 
         Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<TimeOnly>(json, JsonSerializerOptions));
     }

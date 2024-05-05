@@ -52,11 +52,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- Initial varsersion NuGet package - test build, publishing, and usage.
+- Added support for the reflection-free JSON handling (source generators) via thin struct wrappers.
     </PackageReleaseNotes>
-    <AssemblyVersion>8.0.0.0</AssemblyVersion>
-    <FileVersion>8.0.0.0</FileVersion>
-    <Version>8.0.0-alpha1</Version>
+    <AssemblyVersion>8.0.0.1</AssemblyVersion>
+    <FileVersion>8.0.0.1</FileVersion>
+    <Version>8.0.0-beta1</Version>
   </PropertyGroup>
   
   <PropertyGroup>
