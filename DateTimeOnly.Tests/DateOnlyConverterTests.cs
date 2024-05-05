@@ -6,7 +6,9 @@ using Xunit;
 namespace System.Tests;
 
 // ReSharper disable once ClassNeverInstantiated.Global
+#pragma warning disable IDE0079
 [SuppressMessage("ReSharper", "UseRawString")]
+#pragma warning restore IDE0079
 public sealed class DateOnlyConverterTests
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new(JsonSerializerOptions.Default);
@@ -111,7 +113,7 @@ public sealed class DateOnlyConverterTests
     [InlineData("9999-12-31")] // DateOnly.MaxValue
     public static void DateOnly_WriteDictionaryKey_Success(string value)
     {
-        var dict = new Dictionary<DateOnly, int> { [DateOnly.Parse(value)] = 0 };
+        Dictionary<DateOnly, int> dict = new() { [DateOnly.Parse(value)] = 0 };
         string json = JsonSerializer.Serialize(dict, JsonSerializerOptions);
         Assert.Equal($@"{{""{value}"":0}}", json);
     }

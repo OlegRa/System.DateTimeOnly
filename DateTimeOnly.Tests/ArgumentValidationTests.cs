@@ -47,8 +47,8 @@ public sealed class ArgumentValidationTests
     [Fact]
     public void DateOnlyTryFormatValidationWorkedTest()
     {
-        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat(Span<char>.Empty, out _, "X".AsSpan()));
-        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat(Span<char>.Empty, out _, "KK".AsSpan()));
+        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat([], out _, "X".AsSpan()));
+        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat([], out _, "KK".AsSpan()));
     }
 
     [Fact]
@@ -81,7 +81,7 @@ public sealed class ArgumentValidationTests
             () => DateOnly.ParseExact(NullString, Array.Empty<string>(), CultureInfo.InvariantCulture)).ParamName);
 
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
-            () => DateOnly.ParseExact(ReadOnlySpan<char>.Empty, ReadOnlySpan<char>.Empty,
+            () => DateOnly.ParseExact([], ReadOnlySpan<char>.Empty,
                 CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)).ParamName);
 
         Assert.Equal(FormatArgumentName, Assert.Throws<ArgumentNullException>(
@@ -91,7 +91,7 @@ public sealed class ArgumentValidationTests
             () => DateOnly.ParseExact(string.Empty, NullStringArray, CultureInfo.InvariantCulture)).ParamName);
 
         Assert.Throws<FormatException>(() => DateOnly.ParseExact(
-            string.Empty, new []{ string.Empty }, CultureInfo.InvariantCulture));
+            string.Empty, [string.Empty], CultureInfo.InvariantCulture));
     }
 
     [Fact]
@@ -114,12 +114,12 @@ public sealed class ArgumentValidationTests
         Assert.Equal(default, dateOnly);
 
         Assert.False(DateOnly.TryParseExact(
-            ReadOnlySpan<char>.Empty, new [] { string.Empty }, CultureInfo.InvariantCulture, 
+            [], [string.Empty], CultureInfo.InvariantCulture, 
             DateTimeStyles.AllowWhiteSpaces, out dateOnly));
         Assert.Equal(default, dateOnly);
 
         Assert.False(DateOnly.TryParseExact(
-            ReadOnlySpan<char>.Empty, Array.Empty<string>(), CultureInfo.InvariantCulture, 
+            [], Array.Empty<string>(), CultureInfo.InvariantCulture, 
             DateTimeStyles.AllowWhiteSpaces, out dateOnly));
         Assert.Equal(default, dateOnly);
 
@@ -165,8 +165,8 @@ public sealed class ArgumentValidationTests
     [Fact]
     public void TimeOnlyTryFormatValidationWorkedTest()
     {
-        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat(Span<char>.Empty, out _, "X".AsSpan()));
-        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat(Span<char>.Empty, out _, "kk".AsSpan()));
+        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat([], out _, "X".AsSpan()));
+        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat([], out _, "kk".AsSpan()));
     }
 
     [Fact]
@@ -209,7 +209,7 @@ public sealed class ArgumentValidationTests
             () => TimeOnly.ParseExact(string.Empty, NullStringArray, CultureInfo.InvariantCulture)).ParamName);
 
         Assert.Throws<FormatException>(() => TimeOnly.ParseExact(
-            string.Empty, new []{ string.Empty }, CultureInfo.InvariantCulture));
+            string.Empty, [string.Empty], CultureInfo.InvariantCulture));
     }
 
     [Fact]
@@ -232,12 +232,12 @@ public sealed class ArgumentValidationTests
         Assert.Equal(default, timeOnly);
 
         Assert.False(TimeOnly.TryParseExact(
-            ReadOnlySpan<char>.Empty, new []{ string.Empty }, CultureInfo.InvariantCulture, 
+            [], [string.Empty], CultureInfo.InvariantCulture, 
             DateTimeStyles.AllowWhiteSpaces, out timeOnly));
         Assert.Equal(default, timeOnly);
 
         Assert.False(TimeOnly.TryParseExact(
-            ReadOnlySpan<char>.Empty, Array.Empty<string>(), CultureInfo.InvariantCulture, 
+            [], Array.Empty<string>(), CultureInfo.InvariantCulture, 
             DateTimeStyles.AllowWhiteSpaces, out timeOnly));
         Assert.Equal(default, timeOnly);
 

@@ -32,4 +32,8 @@
     <ProjectReference Include="..\DateTimeOnly.Json\DateTimeOnly.Json.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="DateTimeOnly.Testы.csproj.DotSettings" />
+  </ItemGroup>
+
 </Project>
