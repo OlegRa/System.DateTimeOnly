@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Xunit.Abstractions;
@@ -7,6 +8,9 @@ using Xunit.Sdk;
 namespace System.Tests;
 
 // ReSharper disable once UnusedType.Global
+#pragma warning disable IDE0079
+[SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
+#pragma warning restore IDE0079
 public sealed class ConditionalFactDiscoverer(
     IMessageSink diagnosticMessageSink) : FactDiscoverer(diagnosticMessageSink)
 {

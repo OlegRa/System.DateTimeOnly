@@ -1,8 +1,10 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Xunit;
 
 namespace System.Tests;
 
+[SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
 public sealed class ArgumentValidationTests
 {
     private const string InputArgumentName = "s";

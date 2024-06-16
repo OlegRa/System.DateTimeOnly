@@ -5,7 +5,12 @@ using Xunit;
 namespace System.Tests;
 
 // ReSharper disable once ClassNeverInstantiated.Global
+#pragma warning disable IDE0079
 [SuppressMessage("ReSharper", "UseRawString")]
+[SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
+[SuppressMessage("ReSharper", "SuggestVarOrType_Elsewhere")]
+[SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
+#pragma warning restore IDE0079
 public sealed class TimeOnlyConverterTests
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new(JsonSerializerOptions.Default);

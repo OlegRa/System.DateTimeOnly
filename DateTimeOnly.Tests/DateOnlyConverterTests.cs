@@ -8,6 +8,9 @@ namespace System.Tests;
 // ReSharper disable once ClassNeverInstantiated.Global
 #pragma warning disable IDE0079
 [SuppressMessage("ReSharper", "UseRawString")]
+[SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
+[SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
+[SuppressMessage("ReSharper", "SuggestVarOrType_Elsewhere")]
 #pragma warning restore IDE0079
 public sealed class DateOnlyConverterTests
 {

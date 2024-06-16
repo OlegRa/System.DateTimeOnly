@@ -1,8 +1,12 @@
-﻿using Xunit;
+﻿using System.Diagnostics.CodeAnalysis;
+using Xunit;
 
 namespace System.Tests;
 
 // ReSharper disable once ClassNeverInstantiated.Global
+#pragma warning disable IDE0079
+[SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
+#pragma warning restore IDE0079
 public sealed class FastStrictParsingLogicTests
 {
     private const string DateOnlyFormat = "d";

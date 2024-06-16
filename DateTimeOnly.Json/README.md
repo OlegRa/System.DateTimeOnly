@@ -23,3 +23,7 @@ The package provides two helper types: `System.Text.Json.DateOnly` and `System.T
 ## Contributors
 
 Thanks a lot for all contributors. See the full list of project supporters in the [CONTRIBUTORS](https://github.com/OlegRa/System.DateTimeOnly/blob/master/CONTRIBUTORS.md) file.
+
+## SAST Tools
+
+This project uses [PVS-Studio](https://pvs-studio.com/en/pvs-studio/?utm_source=website&utm_medium=github&utm_campaign=open_source) - static analyzer for C, C++, C#, and Java code.

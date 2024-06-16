@@ -1,8 +1,13 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using Xunit;
 
 namespace System.Tests;
 
+#pragma warning disable IDE0079
+[SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
+[SuppressMessage("ReSharper", "SuggestVarOrType_SimpleTypes")]
+#pragma warning restore IDE0079
 public sealed class JsonContextTests
 {
     [Fact]
