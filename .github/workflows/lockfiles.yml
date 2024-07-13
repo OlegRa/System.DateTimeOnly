@@ -3,7 +3,6 @@ name: Update NuGet Lock Files
 on:
   pull_request:
     branches: [ master ]
-  workflow_dispatch:
 
 permissions:
   contents: write
