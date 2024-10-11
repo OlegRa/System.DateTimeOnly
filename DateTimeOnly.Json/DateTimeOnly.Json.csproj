@@ -52,11 +52,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The `System.Text.Json` updated to version 8.0.4 with fix for the CVE-2024-30105 vulnerability.
+- The `System.Text.Json` updated to version 8.0.5 with fix for the CVE-2024-43485 vulnerability.
     </PackageReleaseNotes>
-    <AssemblyVersion>8.0.1.0</AssemblyVersion>
-    <FileVersion>8.0.1.0</FileVersion>
-    <Version>8.0.1</Version>
+    <AssemblyVersion>8.0.2.0</AssemblyVersion>
+    <FileVersion>8.0.2.0</FileVersion>
+    <Version>8.0.2</Version>
   </PropertyGroup>
   
   <PropertyGroup>
