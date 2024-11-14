@@ -68,6 +68,7 @@ internal enum ParseFailureKind
     None = 0,
     Argument_InvalidDateStyles = 3,
     Format_BadDateOnly = 4,
+    Format_BadTimeOnly = 2,
     Argument_BadFormatSpecifier = 5,
     Format_DateTimeOnlyContainsNoneDateParts = 8  // DateOnly and TimeOnly specific value. Unrelated date parts when parsing DateOnly or Unrelated time parts when parsing TimeOnly
 }

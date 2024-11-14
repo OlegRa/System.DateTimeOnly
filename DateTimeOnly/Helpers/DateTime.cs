@@ -27,7 +27,7 @@ internal static class DateTime
     private const int DaysPer400Years = DaysPer100Years * 4 + 1; // 146097
 
     // Number of days from 1/1/0001 to 12/31/9999
-    private const int DaysTo10000 = DaysPer400Years * 25 - 366;  // 3652059
+    internal const int DaysTo10000 = DaysPer400Years * 25 - 366;  // 3652059
 
     private const long MaxTicks = DaysTo10000 * TicksPerDay - 1;
 

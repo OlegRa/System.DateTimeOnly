@@ -30,8 +30,8 @@ namespace System
         // MinTimeTicks is the ticks for the midnight time 00:00:00.000 AM
         private const long MinTimeTicks = 0;
 
-        // MaxTimeTicks is the max tick value for the time in the day. It is calculated using DateTime.Today.AddTicks(-1).TimeOfDay.Ticks.
-        private const long MaxTimeTicks = 863_999_999_999;
+        // MaxTimeTicks is the max tick value for the time in the day.
+        private const long MaxTimeTicks = TimeSpan.TicksPerDay - 1;
 
         /// <summary>
         /// Represents the smallest possible value of TimeOnly.
@@ -48,7 +48,7 @@ namespace System
         /// </summary>
         /// <param name="hour">The hours (0 through 23).</param>
         /// <param name="minute">The minutes (0 through 59).</param>
-        public TimeOnly(int hour, int minute) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, 0, 0)) {}
+        public TimeOnly(int hour, int minute) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, 0, 0)) { }
 
         /// <summary>
         /// Initializes a new instance of the timeOnly structure to the specified hour, minute, and second.
@@ -56,7 +56,7 @@ namespace System
         /// <param name="hour">The hours (0 through 23).</param>
         /// <param name="minute">The minutes (0 through 59).</param>
         /// <param name="second">The seconds (0 through 59).</param>
-        public TimeOnly(int hour, int minute, int second) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, second, 0)) {}
+        public TimeOnly(int hour, int minute, int second) : this(Diagnostics.DateTime.TimeToTicks(hour, minute, second, 0)) { }
 
         /// <summary>
         /// Initializes a new instance of the timeOnly structure to the specified hour, minute, second, and millisecond.
@@ -277,7 +277,6 @@ namespace System
         /// <returns>The elapsed time between t1 and t2.</returns>
         public static TimeSpan operator -(TimeOnly t1, TimeOnly t2) => new TimeSpan((t1._ticks - t2._ticks + TimeSpan.TicksPerDay) % TimeSpan.TicksPerDay);
 
-
         /// <summary>
         /// Deconstructs <see cref="TimeOnly"/> by <see cref="Hour"/> and <see cref="Minute"/>.
         /// </summary>
@@ -288,12 +287,10 @@ namespace System
         /// Deconstructed parameter for <see cref="Minute"/>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out int hour, out int minute)
         {
-            var ts = new TimeSpan(_ticks);
-            hour = ts.Hours;
-            minute = ts.Minutes;
+            hour = Hour;
+            minute = Minute;
         }
 
         /// <summary>
@@ -309,13 +306,10 @@ namespace System
         /// Deconstructed parameter for <see cref="Second"/>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out int hour, out int minute, out int second)
         {
-            var ts = new TimeSpan(_ticks);
-            hour = ts.Hours;
-            minute = ts.Minutes;
-            second = ts.Seconds;
+            (hour, minute) = this;
+            second = Second;
         }
 
         /// <summary>
@@ -334,14 +328,10 @@ namespace System
         /// Deconstructed parameter for <see cref="Millisecond"/>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out int hour, out int minute, out int second, out int millisecond)
         {
-            var ts = new TimeSpan(_ticks);
-            hour = ts.Hours;
-            minute = ts.Minutes;
-            second = ts.Seconds;
-            millisecond = ts.Milliseconds;
+            (hour, minute, second) = this;
+            millisecond = Millisecond;
         }
 
         /// <summary>
@@ -541,7 +531,7 @@ namespace System
         /// <param name="provider">An object that supplies culture-specific format information about s.</param>
         /// <param name="style">A bitwise combination of the enumeration values that indicates the style elements that can be present in s for the parse operation to succeed, and that defines how to interpret the parsed date. A typical value to specify is None.</param>
         /// <returns>An object that is equivalent to the time contained in s, as specified by provider and styles.</returns>
-        public static TimeOnly Parse(string s, IFormatProvider? provider, DateTimeStyles style/* = DateTimeStyles.None*/)
+        public static TimeOnly Parse(string s, IFormatProvider? provider, DateTimeStyles style = DateTimeStyles.None)
         {
             if (s == null) ThrowHelper.ThrowArgumentNullException(ExceptionArgument.s);
             return Parse(s.AsSpan(), provider, style);
@@ -630,7 +620,7 @@ namespace System
             if (!DateTimeParse.TryParse(s, DateTimeFormatInfo.GetInstance(provider), style, ref dtResult))
             {
                 result = default;
-                return ParseFailureKind.Format_BadDateOnly;
+                return ParseFailureKind.Format_BadTimeOnly;
             }
 
             if ((dtResult.flags & ParseFlagsTimeMask) != 0)
@@ -677,16 +667,14 @@ namespace System
 
             if (format.Length == 1)
             {
-                switch (format[0])
+                switch (format[0] | 0x20)
                 {
                     case 'o':
-                    case 'O':
                         format = OFormat.AsSpan();
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
 
                     case 'r':
-                    case 'R':
                         format = RFormat.AsSpan();
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
@@ -699,7 +687,7 @@ namespace System
             if (!DateTimeParse.TryParseExact(s, format, DateTimeFormatInfo.GetInstance(provider), style, ref dtResult))
             {
                 result = default;
-                return ParseFailureKind.Format_BadDateOnly;
+                return ParseFailureKind.Format_BadTimeOnly;
             }
 
             if ((dtResult.flags & ParseFlagsTimeMask) != 0)
@@ -756,16 +744,14 @@ namespace System
 
                 if (format!.Length == 1)
                 {
-                    switch (format[0])
+                    switch (format[0] | 0x20)
                     {
                         case 'o':
-                        case 'O':
                             format = OFormat;
                             dtfiToUse = CultureInfo.InvariantCulture.DateTimeFormat;
                             break;
 
                         case 'r':
-                        case 'R':
                             format = RFormat;
                             dtfiToUse = CultureInfo.InvariantCulture.DateTimeFormat;
                             break;
@@ -784,7 +770,7 @@ namespace System
             }
 
             result = default;
-            return ParseFailureKind.Format_BadDateOnly;
+            return ParseFailureKind.Format_BadTimeOnly;
         }
 
         /// <summary>
@@ -880,8 +866,8 @@ namespace System
             switch (result)
             {
                 case ParseFailureKind.Argument_InvalidDateStyles: throw new ArgumentException(SR.Argument_InvalidDateStyles, "style");
-                case ParseFailureKind.Format_BadDateOnly: throw new FormatException(SR.Format(SR.Format_BadTimeOnly, s.ToString()));
                 case ParseFailureKind.Argument_BadFormatSpecifier: throw new FormatException(SR.Argument_BadFormatSpecifier);
+                case ParseFailureKind.Format_BadTimeOnly: throw new FormatException(SR.Format(SR.Format_BadTimeOnly, s.ToString()));
                 default:
                     Debug.Assert(result == ParseFailureKind.Format_DateTimeOnlyContainsNoneDateParts);
                     throw new FormatException(SR.Format(SR.Format_DateTimeOnlyContainsNoneDateParts, s.ToString(), nameof(TimeOnly)));
@@ -938,31 +924,24 @@ namespace System
 
             if (format!.Length == 1)
             {
-                switch (format[0])
+                return (format[0] | 0x20) switch
                 {
-                    case 'o':
-                    case 'O':
-                        return StringFactory.Create(16, this, (destination, value) =>
-                        {
-                            bool b = DateTimeFormat.TryFormatTimeOnlyO(value.Hour, value.Minute, value.Second, value._ticks % TimeSpan.TicksPerSecond, destination);
-                            Debug.Assert(b);
-                        });
+                    'o' => StringFactory.Create(16, this, (destination, value) =>
+                           {
+                               DateTimeFormat.TryFormatTimeOnlyO(value.Hour, value.Minute, value.Second, value._ticks % TimeSpan.TicksPerSecond, destination, out int charsWritten);
+                               Debug.Assert(charsWritten == destination.Length);
+                           }),
 
-                    case 'r':
-                    case 'R':
-                        return StringFactory.Create(8, this, (destination, value) =>
-                        {
-                            bool b = DateTimeFormat.TryFormatTimeOnlyR(value.Hour, value.Minute, value.Second, destination);
-                            Debug.Assert(b);
-                        });
+                    'r' => StringFactory.Create(8, this, (destination, value) =>
+                           {
+                               DateTimeFormat.TryFormatTimeOnlyR(value.Hour, value.Minute, value.Second, destination, out int charsWritten);
+                               Debug.Assert(charsWritten == destination.Length);
+                           }),
 
-                    case 't':
-                    case 'T':
-                        return DateTimeFormat.Format(ToDateTime(), format, provider);
+                    't' => DateTimeFormat.Format(ToDateTime(), format, provider),
 
-                    default:
-                        throw new FormatException(SR.Format_InvalidString);
-                }
+                    _ => throw new FormatException(SR.Format_InvalidString),
+                };
             }
 
             DateTimeFormat.IsValidCustomTimeOnlyFormat(format.AsSpan(), throwOnError: true);
@@ -978,7 +957,7 @@ namespace System
         /// <param name="provider">An optional object that supplies culture-specific formatting information for destination.</param>
         /// <returns>true if the formatting was successful; otherwise, false.</returns>
         /// <remarks>The accepted standard formats are 'r', 'R', 'o', 'O', 't' and 'T'. </remarks>
-        public bool TryFormat(Span<char> destination, out int charsWritten, [StringSyntax(StringSyntaxAttribute.TimeOnlyFormat)] ReadOnlySpan<char> format = default(ReadOnlySpan<char>), IFormatProvider? provider = null)
+        public bool TryFormat(Span<char> destination, out int charsWritten, [StringSyntax(StringSyntaxAttribute.TimeOnlyFormat)] ReadOnlySpan<char> format = default, IFormatProvider? provider = null)
         {
             if (format.Length == 0)
             {
@@ -987,30 +966,15 @@ namespace System
 
             if (format.Length == 1)
             {
-                switch (format[0])
+                switch (format[0] | 0x20)
                 {
                     case 'o':
-                    case 'O':
-                        if (!DateTimeFormat.TryFormatTimeOnlyO(Hour, Minute, Second, _ticks % TimeSpan.TicksPerSecond, destination))
-                        {
-                            charsWritten = 0;
-                            return false;
-                        }
-                        charsWritten = 16;
-                        return true;
+                        return DateTimeFormat.TryFormatTimeOnlyO(Hour, Minute, Second, _ticks % TimeSpan.TicksPerSecond, destination, out charsWritten);
 
                     case 'r':
-                    case 'R':
-                        if (!DateTimeFormat.TryFormatTimeOnlyR(Hour, Minute, Second, destination))
-                        {
-                            charsWritten = 0;
-                            return false;
-                        }
-                        charsWritten = 8;
-                        return true;
+                        return DateTimeFormat.TryFormatTimeOnlyR(Hour, Minute, Second, destination, out charsWritten);
 
                     case 't':
-                    case 'T':
                         return DateTimeFormat.TryFormat(ToDateTime(), destination, out charsWritten, format, provider);
 
                     default:

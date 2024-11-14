@@ -172,10 +172,11 @@ internal static class DateTimeFormat
     //   012345678901234567890123456789012
     //   ---------------------------------
     //   05:30:45.7680000
-    internal static bool TryFormatTimeOnlyO(int hour, int minute, int second, long fraction, Span<char> destination)
+    internal static bool TryFormatTimeOnlyO(int hour, int minute, int second, long fraction, Span<char> destination, out int charsWritten)
     {
         if (destination.Length < 16)
         {
+            charsWritten = 0;
             return false;
         }
 
@@ -189,16 +190,18 @@ internal static class DateTimeFormat
         WriteDigits((uint)fraction, destination.Slice(9, 7));
 #pragma warning restore PC001 // API not supported on all platforms
 
+        charsWritten = 16;
         return true;
     }
 
     //   012345678901234567890123456789012
     //   ---------------------------------
     //   05:30:45
-    internal static bool TryFormatTimeOnlyR(int hour, int minute, int second, Span<char> destination)
+    internal static bool TryFormatTimeOnlyR(int hour, int minute, int second, Span<char> destination, out int charsWritten)
     {
         if (destination.Length < 8)
         {
+            charsWritten = 0;
             return false;
         }
 
@@ -208,6 +211,7 @@ internal static class DateTimeFormat
         destination[5] = ':';
         WriteTwoDecimalDigits((uint)second, destination, 6);
 
+        charsWritten = 8;
         return true;
     }
 
@@ -215,10 +219,11 @@ internal static class DateTimeFormat
     //   012345678901234567890123456789012
     //   ---------------------------------
     //   2017-06-12
-    internal static bool TryFormatDateOnlyO(int year, int month, int day, Span<char> destination)
+    internal static bool TryFormatDateOnlyO(int year, int month, int day, Span<char> destination, out int charsWritten)
     {
         if (destination.Length < 10)
         {
+            charsWritten = 0;
             return false;
         }
 
@@ -227,6 +232,8 @@ internal static class DateTimeFormat
         WriteTwoDecimalDigits((uint)month, destination, 5);
         destination[7] = '-';
         WriteTwoDecimalDigits((uint)day, destination, 8);
+
+        charsWritten = 10;
         return true;
     }
 
@@ -234,10 +241,11 @@ internal static class DateTimeFormat
     //   01234567890123456789012345678
     //   -----------------------------
     //   Tue, 03 Jan 2017
-    internal static bool TryFormatDateOnlyR(DayOfWeek dayOfWeek, int year, int month, int day, Span<char> destination)
+    internal static bool TryFormatDateOnlyR(DayOfWeek dayOfWeek, int year, int month, int day, Span<char> destination, out int charsWritten)
     {
         if (destination.Length < 16)
         {
+            charsWritten = 0;
             return false;
         }
 
@@ -259,6 +267,8 @@ internal static class DateTimeFormat
         destination[10] = monthAbbrev[2];
         destination[11] = ' ';
         WriteFourDecimalDigits((uint)year, destination, 12);
+
+        charsWritten = 16;
         return true;
     }
 

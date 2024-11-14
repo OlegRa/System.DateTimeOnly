@@ -28,8 +28,8 @@ namespace System
         // Maps to Jan 1st year 1
         private const int MinDayNumber = 0;
 
-        // Maps to December 31 year 9999. The value calculated from "new DateTime(9999, 12, 31).Ticks / TimeSpan.TicksPerDay"
-        private const int MaxDayNumber = 3_652_058;
+        // Maps to December 31 year 9999.
+        private const int MaxDayNumber = Diagnostics.DateTime.DaysTo10000 - 1;
 
         private static int DayNumberFromDateTime(DateTime dt) => (int)((ulong)dt.Ticks / TimeSpan.TicksPerDay);
 
@@ -118,6 +118,9 @@ namespace System
         /// </summary>
         /// <param name="value">The number of days to add. To subtract days, specify a negative number.</param>
         /// <returns>An instance whose value is the sum of the date represented by this instance and the number of days represented by value.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown if the resulting value would be greater than <see cref="MaxValue"/>.
+        /// </exception>
         public DateOnly AddDays(int value)
         {
             int newDayNumber = _dayNumber + value;
@@ -162,7 +165,7 @@ namespace System
         public static bool operator !=(DateOnly left, DateOnly right) => left._dayNumber != right._dayNumber;
 
         /// <summary>
-        /// Determines whether one specified DateOnly is later than another specified DateTime.
+        /// Determines whether one specified DateOnly is later than another specified DateOnly.
         /// </summary>
         /// <param name="left">The first object to compare.</param>
         /// <param name="right">The second object to compare.</param>
@@ -362,7 +365,7 @@ namespace System
         /// <param name="provider">An object that supplies culture-specific format information about s.</param>
         /// <param name="style">A bitwise combination of the enumeration values that indicates the style elements that can be present in s for the parse operation to succeed, and that defines how to interpret the parsed date. A typical value to specify is None.</param>
         /// <returns>An object that is equivalent to the date contained in s, as specified by provider and styles.</returns>
-        public static DateOnly Parse(string s, IFormatProvider? provider, DateTimeStyles style/* = DateTimeStyles.None*/)
+        public static DateOnly Parse(string s, IFormatProvider? provider, DateTimeStyles style = DateTimeStyles.None)
         {
             if (s == null) ThrowHelper.ThrowArgumentNullException(ExceptionArgument.s);
             return Parse(s.AsSpan(), provider, style);
@@ -494,16 +497,14 @@ namespace System
 
             if (format.Length == 1)
             {
-                switch (format[0])
+                switch (format[0] | 0x20)
                 {
                     case 'o':
-                    case 'O':
                         format = OFormat.AsSpan();
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
 
                     case 'r':
-                    case 'R':
                         format = RFormat.AsSpan();
                         provider = CultureInfo.InvariantCulture.DateTimeFormat;
                         break;
@@ -573,16 +574,14 @@ namespace System
 
                 if (format!.Length == 1)
                 {
-                    switch (format[0])
+                    switch (format[0] | 0x20)
                     {
                         case 'o':
-                        case 'O':
                             format = OFormat;
                             dtfiToUse = CultureInfo.InvariantCulture.DateTimeFormat;
                             break;
 
                         case 'r':
-                        case 'R':
                             format = RFormat;
                             dtfiToUse = CultureInfo.InvariantCulture.DateTimeFormat;
                             break;
@@ -697,8 +696,8 @@ namespace System
             switch (result)
             {
                 case ParseFailureKind.Argument_InvalidDateStyles: throw new ArgumentException(SR.Argument_InvalidDateStyles, "style");
-                case ParseFailureKind.Format_BadDateOnly: throw new FormatException(SR.Format(SR.Format_BadDateOnly, s.ToString()));
                 case ParseFailureKind.Argument_BadFormatSpecifier: throw new FormatException(SR.Argument_BadFormatSpecifier);
+                case ParseFailureKind.Format_BadDateOnly: throw new FormatException(SR.Format(SR.Format_BadDateOnly, s.ToString()));
                 default:
                     Debug.Assert(result == ParseFailureKind.Format_DateTimeOnlyContainsNoneDateParts);
                     throw new FormatException(SR.Format(SR.Format_DateTimeOnlyContainsNoneDateParts, s.ToString(), nameof(DateOnly)));
@@ -753,35 +752,24 @@ namespace System
 
             if (format!.Length == 1)
             {
-                switch (format[0])
+                return (format[0] | 0x20) switch
                 {
-                    case 'o':
-                    case 'O':
-                        return StringFactory.Create(10, this, (destination, value) =>
-                        {
-                            bool b = DateTimeFormat.TryFormatDateOnlyO(value.Year, value.Month, value.Day, destination);
-                            Debug.Assert(b);
-                        });
+                    'o' => StringFactory.Create(10, this, (destination, value) =>
+                           {
+                               DateTimeFormat.TryFormatDateOnlyO(value.Year, value.Month, value.Day, destination, out int charsWritten);
+                               Debug.Assert(charsWritten == destination.Length);
+                           }),
 
-                    case 'r':
-                    case 'R':
-                        return StringFactory.Create(16, this, (destination, value) =>
-                        {
-                            bool b = DateTimeFormat.TryFormatDateOnlyR(value.DayOfWeek, value.Year, value.Month, value.Day, destination);
-                            Debug.Assert(b);
-                        });
+                    'r' => StringFactory.Create(16, this, (destination, value) =>
+                           {
+                               DateTimeFormat.TryFormatDateOnlyR(value.DayOfWeek, value.Year, value.Month, value.Day, destination, out int charsWritten);
+                               Debug.Assert(charsWritten == destination.Length);
+                           }),
 
-                    case 'm':
-                    case 'M':
-                    case 'd':
-                    case 'D':
-                    case 'y':
-                    case 'Y':
-                        return DateTimeFormat.Format(GetEquivalentDateTime(), format, provider);
+                    'm' or 'd' or 'y' => DateTimeFormat.Format(GetEquivalentDateTime(), format, provider),
 
-                    default:
-                        throw new FormatException(SR.Format_InvalidString);
-                }
+                    _ => throw new FormatException(SR.Format_InvalidString),
+                };
             }
 
             DateTimeFormat.IsValidCustomDateOnlyFormat(format.AsSpan(), throwOnError: true);
@@ -796,7 +784,7 @@ namespace System
         /// <param name="format">A span containing the characters that represent a standard or custom format string that defines the acceptable format for destination.</param>
         /// <param name="provider">An optional object that supplies culture-specific formatting information for destination.</param>
         /// <returns>true if the formatting was successful; otherwise, false.</returns>
-        public bool TryFormat(Span<char> destination, out int charsWritten, [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] ReadOnlySpan<char> format = default(ReadOnlySpan<char>), IFormatProvider? provider = null)
+        public bool TryFormat(Span<char> destination, out int charsWritten, [StringSyntax(StringSyntaxAttribute.DateOnlyFormat)] ReadOnlySpan<char> format = default, IFormatProvider? provider = null)
         {
             if (format.Length == 0)
             {
@@ -805,35 +793,17 @@ namespace System
 
             if (format.Length == 1)
             {
-                switch (format[0])
+                switch (format[0] | 0x20)
                 {
                     case 'o':
-                    case 'O':
-                        if (!DateTimeFormat.TryFormatDateOnlyO(Year, Month, Day, destination))
-                        {
-                            charsWritten = 0;
-                            return false;
-                        }
-                        charsWritten = 10;
-                        return true;
+                        return DateTimeFormat.TryFormatDateOnlyO(Year, Month, Day, destination, out charsWritten);
 
                     case 'r':
-                    case 'R':
-
-                        if (!DateTimeFormat.TryFormatDateOnlyR(DayOfWeek, Year, Month, Day, destination))
-                        {
-                            charsWritten = 0;
-                            return false;
-                        }
-                        charsWritten = 16;
-                        return true;
+                        return DateTimeFormat.TryFormatDateOnlyR(DayOfWeek, Year, Month, Day, destination, out charsWritten);
 
                     case 'm':
-                    case 'M':
                     case 'd':
-                    case 'D':
                     case 'y':
-                    case 'Y':
                         return DateTimeFormat.TryFormat(GetEquivalentDateTime(), destination, out charsWritten, format, provider);
 
                     default:
