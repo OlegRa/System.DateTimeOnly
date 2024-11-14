@@ -80,7 +80,7 @@ public sealed class ArgumentValidationTests
             () => DateOnly.ParseExact(NullString, string.Empty, CultureInfo.InvariantCulture)).ParamName);
 
         Assert.Equal(InputArgumentName, Assert.Throws<ArgumentNullException>(
-            () => DateOnly.ParseExact(NullString, Array.Empty<string>(), CultureInfo.InvariantCulture)).ParamName);
+            () => DateOnly.ParseExact(NullString, [], CultureInfo.InvariantCulture)).ParamName);
 
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => DateOnly.ParseExact([], ReadOnlySpan<char>.Empty,
@@ -104,7 +104,7 @@ public sealed class ArgumentValidationTests
         Assert.Equal(default, dateOnly);
 
         Assert.False(DateOnly.TryParseExact(
-            (string?)null, Array.Empty<string>(), CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out dateOnly));
+            (string?)null, [], CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out dateOnly));
         Assert.Equal(default, dateOnly);
 
         Assert.False(DateOnly.TryParseExact(
@@ -198,7 +198,7 @@ public sealed class ArgumentValidationTests
             () => TimeOnly.ParseExact(NullString, string.Empty, CultureInfo.InvariantCulture)).ParamName);
 
         Assert.Equal(InputArgumentName, Assert.Throws<ArgumentNullException>(
-            () => TimeOnly.ParseExact(NullString, Array.Empty<string>(), CultureInfo.InvariantCulture)).ParamName);
+            () => TimeOnly.ParseExact(NullString, [], CultureInfo.InvariantCulture)).ParamName);
 
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => TimeOnly.ParseExact(new ReadOnlySpan<char>(), new ReadOnlySpan<char>(),
@@ -222,7 +222,7 @@ public sealed class ArgumentValidationTests
         Assert.Equal(default, timeOnly);
 
         Assert.False(TimeOnly.TryParseExact(
-            (string?)null, Array.Empty<string>(), CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out timeOnly));
+            (string?)null, [], CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out timeOnly));
         Assert.Equal(default, timeOnly);
 
         Assert.False(TimeOnly.TryParseExact(

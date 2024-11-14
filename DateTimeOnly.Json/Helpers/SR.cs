@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.Resources;
 
 // ReSharper disable once CheckNamespace
+// ReSharper disable SuggestVarOrType_SimpleTypes
+// ReSharper disable SuggestVarOrType_BuiltinTypes
+
 namespace System;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]

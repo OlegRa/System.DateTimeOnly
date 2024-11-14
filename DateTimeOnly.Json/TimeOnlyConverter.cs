@@ -5,6 +5,8 @@ using System.Buffers.Text;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+
 namespace System.Text.Json;
 
 /// <summary>

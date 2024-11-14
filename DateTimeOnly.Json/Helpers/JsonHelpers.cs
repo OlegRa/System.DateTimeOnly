@@ -5,6 +5,10 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+// ReSharper disable SuggestVarOrType_Elsewhere
+// ReSharper disable SuggestVarOrType_SimpleTypes
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+
 namespace System.Text.Json;
 
 internal static class JsonHelpers

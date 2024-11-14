@@ -7,6 +7,7 @@ namespace System.Diagnostics.CodeAnalysis;
 /// <summary>Specifies the syntax used in a string.</summary>
 /// <remarks>Initializes the <see cref="StringSyntaxAttribute"/> with the identifier of the syntax used.</remarks>
 /// <param name="syntax">The syntax identifier.</param>
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
 internal sealed class StringSyntaxAttribute(string syntax) : Attribute
 {

@@ -5,6 +5,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text.Json.Serialization;
 
+// ReSharper disable SuggestVarOrType_SimpleTypes
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+
 namespace System.Text.Json;
 
 /// <summary>

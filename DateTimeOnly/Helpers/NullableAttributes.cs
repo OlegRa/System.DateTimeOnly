@@ -10,6 +10,7 @@ namespace System.Diagnostics.CodeAnalysis;
 /// <param name="returnValue">
 /// The return value condition. If the method returns this value, the associated parameter may be null.
 /// </param>
+[ExcludeFromCodeCoverage]
 [AttributeUsage (AttributeTargets.Parameter)]
 internal sealed class MaybeNullWhenAttribute(bool returnValue) : Attribute
 {
@@ -25,6 +26,7 @@ internal sealed class MaybeNullWhenAttribute(bool returnValue) : Attribute
 /// <param name="returnValue">
 /// The return value condition. If the method returns this value, the associated parameter will not be null.
 /// </param>
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Parameter)]
 internal sealed class NotNullWhenAttribute(bool returnValue) : Attribute
 {
@@ -36,5 +38,6 @@ internal sealed class NotNullWhenAttribute(bool returnValue) : Attribute
 }
 
 /// <summary>Applied to a method that will never return under any circumstance.</summary>
+[ExcludeFromCodeCoverage]
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
 internal sealed class DoesNotReturnAttribute : Attribute;
