@@ -52,11 +52,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The `System.Text.Json` updated to version 8.0.5 with fix for the CVE-2024-43485 vulnerability.
+- The `Portable.System.DateTimeOnly` updated to version 9.0.0-beta1, so we need this package to be pre-released as well.
     </PackageReleaseNotes>
-    <AssemblyVersion>8.0.2.0</AssemblyVersion>
-    <FileVersion>8.0.2.0</FileVersion>
-    <Version>8.0.2</Version>
+    <AssemblyVersion>9.0.0.0</AssemblyVersion>
+    <FileVersion>9.0.0.0</FileVersion>
+    <Version>9.0.0-beta1</Version>
   </PropertyGroup>
   
   <PropertyGroup>
