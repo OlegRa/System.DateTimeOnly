@@ -69,6 +69,12 @@ public sealed class ArgumentValidationTests
             (string?)null, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out DateOnly dateOnly));
         Assert.Equal(default, dateOnly);
 
+        Assert.False(DateOnly.TryParse("aa-bb-cc".AsSpan(), CultureInfo.InvariantCulture, out dateOnly));
+        Assert.Equal(default, dateOnly);
+
+        Assert.False(DateOnly.TryParse("aa-bb-cc", CultureInfo.InvariantCulture, out dateOnly));
+        Assert.Equal(default, dateOnly);
+
         Assert.False(DateOnly.TryParse("aa-bb-cc", out dateOnly));
         Assert.Equal(default, dateOnly);
     }
@@ -185,6 +191,12 @@ public sealed class ArgumentValidationTests
     {
         Assert.False(TimeOnly.TryParse(
             (string?)null, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out TimeOnly timeOnly));
+        Assert.Equal(default, timeOnly);
+
+        Assert.False(TimeOnly.TryParse("aa:bb".AsSpan(), CultureInfo.InvariantCulture, out timeOnly));
+        Assert.Equal(default, timeOnly);
+
+        Assert.False(TimeOnly.TryParse("aa:bb", CultureInfo.InvariantCulture, out timeOnly));
         Assert.Equal(default, timeOnly);
 
         Assert.False(TimeOnly.TryParse("aa:bb", out timeOnly));
