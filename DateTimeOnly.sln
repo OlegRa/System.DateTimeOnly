@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{B3778CF4-B949-4FAA-A651-FAE05B518963}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\coverage.yml = .github\workflows\coverage.yml
+		.github\workflows\lockfiles.yml = .github\workflows\lockfiles.yml
 		README.md = README.md
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection

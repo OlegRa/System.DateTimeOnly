@@ -324,7 +324,7 @@ internal static class JsonHelpers
 
         if (digit1 > 9 || digit2 > 9)
         {
-            value = default;
+            value = 0;
             return false;
         }
 

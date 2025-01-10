@@ -35,7 +35,7 @@
     <PackageProjectUrl>https://github.com/OlegRa/System.DateTimeOnly</PackageProjectUrl>
     <Description>DateOnly and TimeOnly types for .NET versions before 6.0</Description>
     <RepositoryUrl>https://github.com/OlegRa/System.DateTimeOnly</RepositoryUrl>
-    <Copyright>© 2021-2024 Oleg Rakhmatulin. All rights reserved.</Copyright>
+    <Copyright>© 2021-2025 Oleg Rakhmatulin. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <AssemblyName>Portable.System.DateTimeOnly.Json</AssemblyName>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -54,9 +54,9 @@
     <PackageReleaseNotes>
 - The `Portable.System.DateTimeOnly` updated to version 9.0.0-beta1, so we need this package to be pre-released as well.
     </PackageReleaseNotes>
-    <AssemblyVersion>9.0.0.0</AssemblyVersion>
-    <FileVersion>9.0.0.0</FileVersion>
-    <Version>9.0.0-beta1</Version>
+    <AssemblyVersion>9.0.0.1</AssemblyVersion>
+    <FileVersion>9.0.0.1</FileVersion>
+    <Version>9.0.0</Version>
   </PropertyGroup>
   
   <PropertyGroup>
