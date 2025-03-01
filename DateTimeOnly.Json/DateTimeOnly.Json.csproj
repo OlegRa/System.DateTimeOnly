@@ -52,11 +52,13 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The `Portable.System.DateTimeOnly` updated to version 9.0.0-beta1, so we need this package to be pre-released as well.
+- The `System.Text.Json.DateOnly` class was renamed to `System.Text.Json.JsonDateOnly` to prevent ambiguous name resolution problems.
+- The `System.Text.Json.TimeOnly` class was renamed to `System.Text.Json.JsonTimeOnly` to prevent ambiguous name resolution problems.
+- Thanks, @Swimburger, for pointing out this problem with breaking out the existing code just by adding the NuGet package.
     </PackageReleaseNotes>
-    <AssemblyVersion>9.0.0.1</AssemblyVersion>
-    <FileVersion>9.0.0.1</FileVersion>
-    <Version>9.0.0</Version>
+    <AssemblyVersion>9.1.0.0</AssemblyVersion>
+    <FileVersion>9.1.0.0</FileVersion>
+    <Version>9.1.0-beta1</Version>
   </PropertyGroup>
   
   <PropertyGroup>
