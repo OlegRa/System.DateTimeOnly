@@ -1,12 +1,14 @@
-﻿namespace System.Tests;
+﻿using System.Text.Json;
+
+namespace System.Tests;
 
 public class ClassWithDateOnlyAndTimeOnlyValues
 {
-    public Text.Json.DateOnly DateOnly { get; set; }
+    public JsonDateOnly DateOnly { get; set; }
 
-    public Text.Json.DateOnly? NullableDateOnly { get; set; }
+    public JsonDateOnly? NullableDateOnly { get; set; }
 
-    public Text.Json.TimeOnly TimeOnly { get; set; }
+    public JsonTimeOnly TimeOnly { get; set; }
 
-    public Text.Json.TimeOnly? NullableTimeOnly { get; set; }
+    public JsonTimeOnly? NullableTimeOnly { get; set; }
 }

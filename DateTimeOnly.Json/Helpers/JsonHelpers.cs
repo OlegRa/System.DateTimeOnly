@@ -42,7 +42,7 @@ internal static class JsonHelpers
             parseData.IsCalendarDateOnly &&
             TryCreateDateTime(parseData, DateTimeKind.Unspecified, out DateTime dateTime))
         {
-            value = System.DateOnly.FromDateTime(dateTime);
+            value = DateOnly.FromDateTime(dateTime);
             return true;
         }
 

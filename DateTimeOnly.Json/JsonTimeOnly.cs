@@ -7,11 +7,11 @@ namespace System.Text.Json;
 /// <see href="https://docs.microsoft.com/dotnet/api/system.text.json">System.Text.Json</see> library source code generators.
 /// </summary>
 [JsonConverter(typeof(JsonTimeOnlyConverter))]
-public readonly record struct TimeOnly
+public readonly record struct JsonTimeOnly
 {
-    private readonly System.TimeOnly _value;
+    private readonly TimeOnly _value;
 
-    private TimeOnly(System.TimeOnly value) => _value = value;
+    private JsonTimeOnly(TimeOnly value) => _value = value;
 
     /// <inheritdoc />
     public override string ToString() => _value.ToString();
@@ -21,12 +21,12 @@ public readonly record struct TimeOnly
     /// </summary>
     /// <param name="value">A <see cref="TimeOnly"/> struct instance.</param>
     /// <returns>A <see cref="System.TimeOnly"/> struct instance.</returns>
-    public static implicit operator System.TimeOnly(TimeOnly value) => value._value;
+    public static implicit operator TimeOnly(JsonTimeOnly value) => value._value;
 
     /// <summary>
     /// Implicitly converts a <paramref name="value"/> into a <see cref="TimeOnly"/> struct instance.
     /// </summary>
     /// <param name="value">A <see cref="System.TimeOnly"/> struct instance.</param>
     /// <returns>A <see cref="TimeOnly"/> struct instance.</returns>
-    public static implicit operator TimeOnly(System.TimeOnly value) => new(value);
+    public static implicit operator JsonTimeOnly(TimeOnly value) => new(value);
 }

@@ -11,21 +11,21 @@ using System.Text.Json.Serialization;
 namespace System.Text.Json;
 
 /// <summary>
-/// Custom converter for handling the <see cref="System.DateOnly"/> data type with the <see href="https://docs.microsoft.com/dotnet/api/system.text.json">System.Text.Json</see> library.
+/// Custom converter for handling the <see cref="DateOnly"/> data type with the <see href="https://docs.microsoft.com/dotnet/api/system.text.json">System.Text.Json</see> library.
 /// </summary>
 /// <remarks>
 /// This class backported from:
 /// <see href="https://github.com/dotnet/runtime/blob/main/src/libraries/System.Text.Json/src/System/Text/Json/Serialization/Converters/Value/DateOnlyConverter.cs">
 /// System.Text.Json.Serialization.Converters.DateOnlyConverter</see>
 /// </remarks>
-public sealed class DateOnlyConverter : JsonConverter<System.DateOnly>
+public sealed class DateOnlyConverter : JsonConverter<DateOnly>
 {
     private const int FormatLength = 10; // YYYY-MM-DD
 
     private const int MaxEscapedFormatLength = FormatLength * JsonConstants.MaxExpansionFactorWhileEscaping;
 
     /// <inheritdoc />
-    public override System.DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.String)
         {
@@ -36,7 +36,7 @@ public sealed class DateOnlyConverter : JsonConverter<System.DateOnly>
     }
 
     /// <inheritdoc />
-    public override System.DateOnly ReadAsPropertyName(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override DateOnly ReadAsPropertyName(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         Debug.Assert(reader.TokenType == JsonTokenType.PropertyName);
         return ReadCore(ref reader);
@@ -70,7 +70,7 @@ public sealed class DateOnlyConverter : JsonConverter<System.DateOnly>
     }
 
     /// <inheritdoc />
-    public override void Write(Utf8JsonWriter writer, System.DateOnly value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
     {
 #if NET8_0_OR_GREATER
         Span<byte> buffer = stackalloc byte[FormatLength];
@@ -84,7 +84,7 @@ public sealed class DateOnlyConverter : JsonConverter<System.DateOnly>
     }
 
     /// <inheritdoc />
-    public override void WriteAsPropertyName(Utf8JsonWriter writer, System.DateOnly value, JsonSerializerOptions options)
+    public override void WriteAsPropertyName(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
     {
 #if NET8_0_OR_GREATER
         Span<byte> buffer = stackalloc byte[FormatLength];
