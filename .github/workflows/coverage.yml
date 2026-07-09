@@ -23,7 +23,7 @@ jobs:
       run: dotnet dotcover test --dcXML=Configuration.xml
 
     - name: Save Report
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: coverage-report
         path: CoverageReport.xml
