@@ -289,10 +289,10 @@ public sealed class ArgumentValidationTests
 
         // a bad trailing entry must be caught even if an earlier format would have matched
         Assert.Throws<FormatException>(() => TimeOnly.ParseExact(
-            TimeOnlyValue.ToString("HH:mm:ss"), ["HH:mm:ss", string.Empty], CultureInfo.InvariantCulture));
+            TimeOnlyValue.ToString("HH:mm:ss", CultureInfo.InvariantCulture), ["HH:mm:ss", string.Empty], CultureInfo.InvariantCulture));
 
         Assert.Throws<FormatException>(() => TimeOnly.TryParseExact(
-            TimeOnlyValue.ToString("HH:mm:ss").AsSpan(), ["HH:mm:ss", string.Empty], CultureInfo.InvariantCulture,
+            TimeOnlyValue.ToString("HH:mm:ss", CultureInfo.InvariantCulture).AsSpan(), ["HH:mm:ss", string.Empty], CultureInfo.InvariantCulture,
             DateTimeStyles.None, out timeOnly));
 
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
