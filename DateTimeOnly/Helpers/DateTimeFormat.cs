@@ -34,8 +34,10 @@ internal static class DateTimeFormat
     // Approximates the "is this format specifier malformed" check that the real .NET's internal
     // parsing engine performs as a side effect of walking format and input together (exposed via
     // DateTimeResult.failure), which isn't reachable through the public DateTime.TryParseExact API
-    // this backport delegates to. Deliberately checks only quote/escape balance, not specifier
-    // validity for a specific type - that's a separate concern already handled via ParseFlags masks.
+    // this backport delegates to. Deliberately checks only quote/escape balance, not whether a
+    // specifier is the wrong type for DateOnly/TimeOnly (e.g. an hour specifier in a DateOnly
+    // format) - that's a distinct, separate concern from a malformed format string, out of scope
+    // here.
     internal static bool IsWellFormedCustomFormat(ReadOnlySpan<char> format)
     {
         var i = 0;
