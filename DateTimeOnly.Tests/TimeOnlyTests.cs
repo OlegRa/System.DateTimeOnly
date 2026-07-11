@@ -4,6 +4,7 @@
 // ReSharper disable All
 
 using System.Globalization;
+using System.Text;
 using Xunit;
 
 using AssertExtensions=Xunit.Assert;
@@ -596,5 +597,44 @@ public class TimeOnlyTests
         });
         Assert.Throws<FormatException>(() => $"{timeOnly:u}");
         Assert.Throws<FormatException>(() => $"{timeOnly:dd-yyyy}");
+    }
+
+    [Fact]
+    public static void Utf8TryFormatTest()
+    {
+        Span<byte> buffer = stackalloc byte[100];
+        TimeOnly timeOnly = TimeOnly.FromDateTime(DateTime.Now);
+
+        Assert.True(timeOnly.TryFormat(buffer, out int bytesWritten));
+        AssertUtf8Matches(timeOnly.ToString(), buffer, bytesWritten);
+
+        Assert.True(timeOnly.TryFormat(buffer, out bytesWritten, "o".AsSpan()));
+        Assert.Equal(16, bytesWritten);
+        AssertUtf8Matches(timeOnly.ToString("o"), buffer, bytesWritten);
+
+        Assert.True(timeOnly.TryFormat(buffer, out bytesWritten, "R".AsSpan()));
+        Assert.Equal(8, bytesWritten);
+        AssertUtf8Matches(timeOnly.ToString("R"), buffer, bytesWritten);
+
+        // a custom format long enough to overflow the fast-path's small stack buffer must still work
+        string longCustomFormat = string.Concat(System.Linq.Enumerable.Repeat("'x'HH:mm:ss", 6));
+        Assert.True(timeOnly.TryFormat(buffer, out bytesWritten, longCustomFormat.AsSpan()));
+        AssertUtf8Matches(timeOnly.ToString(longCustomFormat), buffer, bytesWritten);
+
+        Assert.False(timeOnly.TryFormat(buffer.Slice(0, 3), out bytesWritten));
+        Assert.False(timeOnly.TryFormat(buffer.Slice(0, 3), out bytesWritten, "r".AsSpan()));
+        Assert.False(timeOnly.TryFormat(buffer.Slice(0, 3), out bytesWritten, "O".AsSpan()));
+
+        Assert.Throws<FormatException>(() => {
+            Span<byte> buff = stackalloc byte[100];
+            timeOnly.TryFormat(buff, out bytesWritten, "u".AsSpan());
+        });
+        Assert.Throws<FormatException>(() => {
+            Span<byte> buff = stackalloc byte[100];
+            timeOnly.TryFormat(buff, out bytesWritten, "dd-yyyy".AsSpan());
+        });
+
+        static void AssertUtf8Matches(string expected, Span<byte> actualBuffer, int bytesWritten) =>
+            Assert.Equal(expected, Encoding.UTF8.GetString(actualBuffer.Slice(0, bytesWritten).ToArray()));
     }
 }

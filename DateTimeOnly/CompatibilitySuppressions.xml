@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- https://learn.microsoft.com/en-us/dotnet/fundamentals/package-validation/diagnostic-ids -->
-<Suppressions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- https://learn.microsoft.com/dotnet/fundamentals/package-validation/diagnostic-ids -->
+<Suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Suppression>
+    <DiagnosticId>CP0001</DiagnosticId>
+    <Target>T:System.IUtf8SpanFormattable</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:System.DateOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@)</Target>
@@ -16,6 +22,12 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:System.DateOnly.Parse(System.String,System.IFormatProvider)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.DateOnly.TryFormat(System.Span{System.Byte},System.Int32@,System.ReadOnlySpan{System.Char},System.IFormatProvider)</Target>
     <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
     <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
   </Suppression>
@@ -39,13 +51,7 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@)</Target>
-    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
-    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@)</Target>
+    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@)</Target>
     <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
     <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
   </Suppression>
@@ -57,7 +63,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32@)</Target>
+    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@,System.Int32@)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.TimeOnly.Deconstruct(System.Int32@,System.Int32@)</Target>
     <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
     <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
   </Suppression>
@@ -87,6 +99,12 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:System.TimeOnly.TryFormat(System.Span{System.Byte},System.Int32@,System.ReadOnlySpan{System.Char},System.IFormatProvider)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:System.TimeOnly.TryParse(System.ReadOnlySpan{System.Char},System.IFormatProvider,System.TimeOnly@)</Target>
     <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
     <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
@@ -94,6 +112,18 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:System.TimeOnly.TryParse(System.String,System.IFormatProvider,System.TimeOnly@)</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:System.DateOnly</Target>
+    <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
+    <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:System.TimeOnly</Target>
     <Left>ref/netstandard2.1/Portable.System.DateTimeOnly.dll</Left>
     <Right>ref/net6.0/Portable.System.DateTimeOnly.dll</Right>
   </Suppression>

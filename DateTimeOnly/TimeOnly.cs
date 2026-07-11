@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace System
 {
@@ -22,7 +23,8 @@ namespace System
         : IComparable,
           IComparable<TimeOnly>,
           IEquatable<TimeOnly>,
-          ISpanFormattable
+          ISpanFormattable,
+          IUtf8SpanFormattable
     {
         // represent the number of ticks map to the time of the day. 1 ticks = 100-nanosecond in time measurements.
         private readonly long _ticks;
@@ -1023,6 +1025,65 @@ namespace System
             }
 
             return DateTimeFormat.TryFormat(ToDateTime(), destination, out charsWritten, format, provider);
+        }
+
+        /// <summary>
+        /// Tries to format the value of the current TimeOnly instance as UTF-8 into the provided span of bytes.
+        /// </summary>
+        /// <param name="utf8Destination">When this method returns, this instance's value formatted as a span of UTF-8 bytes.</param>
+        /// <param name="bytesWritten">When this method returns, the number of bytes that were written in utf8Destination.</param>
+        /// <param name="format">A span containing the characters that represent a standard or custom format string that defines the acceptable format for utf8Destination.</param>
+        /// <param name="provider">An optional object that supplies culture-specific formatting information for utf8Destination.</param>
+        /// <returns>true if the formatting was successful; otherwise, false.</returns>
+        /// <remarks>
+        /// This backport can't format directly into UTF-8 the way the real .NET 8+ implementation does, since that
+        /// relies on internal BCL primitives unavailable here. On netstandard2.1 this still avoids allocating in the
+        /// common case (formats into a stack-allocated char buffer, then encodes that span directly into
+        /// <paramref name="utf8Destination"/>); on netstandard2.0/net462 it always allocates internally, since
+        /// neither target framework exposes a way to encode UTF-8 straight into a caller-supplied Span&lt;byte&gt;.
+        /// </remarks>
+        public bool TryFormat(Span<byte> utf8Destination, out int bytesWritten, [StringSyntax(StringSyntaxAttribute.TimeOnlyFormat)] ReadOnlySpan<char> format = default, IFormatProvider? provider = null)
+        {
+#if NETSTANDARD2_1_OR_GREATER
+            Span<char> charBuffer = stackalloc char[64];
+            if (TryFormat(charBuffer, out int charsWritten, format, provider))
+            {
+                ReadOnlySpan<char> formatted = charBuffer.Slice(0, charsWritten);
+                if (Encoding.UTF8.GetByteCount(formatted) > utf8Destination.Length)
+                {
+                    bytesWritten = 0;
+                    return false;
+                }
+
+                bytesWritten = Encoding.UTF8.GetBytes(formatted, utf8Destination);
+                return true;
+            }
+
+            // the stack buffer above is sized generously for standard/short custom formats; an
+            // unbounded custom literal is the only realistic way to overflow it
+            string overflowFormatted = ToString(format.Length == 0 ? null : format.ToString(), provider);
+            int overflowByteCount = Encoding.UTF8.GetByteCount(overflowFormatted);
+            if (overflowByteCount > utf8Destination.Length)
+            {
+                bytesWritten = 0;
+                return false;
+            }
+
+            bytesWritten = Encoding.UTF8.GetBytes(overflowFormatted, utf8Destination);
+            return true;
+#else
+            string formatted = ToString(format.Length == 0 ? null : format.ToString(), provider);
+            int byteCount = Encoding.UTF8.GetByteCount(formatted);
+            if (byteCount > utf8Destination.Length)
+            {
+                bytesWritten = 0;
+                return false;
+            }
+
+            Encoding.UTF8.GetBytes(formatted).AsSpan().CopyTo(utf8Destination);
+            bytesWritten = byteCount;
+            return true;
+#endif
         }
 
         //
