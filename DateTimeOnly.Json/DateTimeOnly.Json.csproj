@@ -52,15 +52,11 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The `System.Text.Json.DateOnly` class was renamed to `System.Text.Json.JsonDateOnly` to prevent ambiguous name resolution problems.
-- The `System.Text.Json.TimeOnly` class was renamed to `System.Text.Json.JsonTimeOnly` to prevent ambiguous name resolution problems.
-- Thanks, @Swimburger, for pointing out this problem with breaking out the existing code just by adding the NuGet package.
-- The `System.Text.Json` package was upgraded from version 9.0.2 to version 9.0.8 for better compatibility.
-- The `Portable.System.DateTimeOnly` package was upgraded to version 9.0.1 for better compatibility.
+- The `Portable.System.DateTimeOnly` package was upgraded to version 9.0.2 for better compatibility. No changes in this package's own code.
     </PackageReleaseNotes>
-    <AssemblyVersion>9.1.0.1</AssemblyVersion>
-    <FileVersion>9.1.0.1</FileVersion>
-    <Version>9.1.0</Version>
+    <AssemblyVersion>9.1.1.0</AssemblyVersion>
+    <FileVersion>9.1.1.0</FileVersion>
+    <Version>9.1.1</Version>
   </PropertyGroup>
   
   <PropertyGroup>

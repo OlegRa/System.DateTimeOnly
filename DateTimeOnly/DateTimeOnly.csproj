@@ -52,11 +52,14 @@
 
   <PropertyGroup>
     <PackageReleaseNotes>
-- The `System.Memory` package was upgraded from version 4.6.0 to version 4.6.3 for better compatibility.
+- `DateOnly`/`TimeOnly` `TryParse` and `TryParseExact` now throw `ArgumentException` for an invalid `DateTimeStyles` value instead of silently returning `false`, matching `Parse`/`ParseExact` and upstream behavior.
+- `ParseExact`/`TryParseExact` overloads taking an array of formats now validate every entry up front, so a malformed or empty trailing entry is caught even if an earlier entry in the array would have matched the input.
+- `TryParseExact` now throws `FormatException` for a malformed custom format string (e.g. an unterminated quoted literal) instead of silently returning `false`, matching `ParseExact`.
+- Added `IUtf8SpanFormattable` support (`TryFormat` into a `Span&lt;byte&gt;`) to `DateOnly`/`TimeOnly`, with an allocation-free fast path on netstandard2.1.
     </PackageReleaseNotes>
-    <AssemblyVersion>9.0.1.0</AssemblyVersion>
-    <FileVersion>9.0.1.0</FileVersion>
-    <Version>9.0.1</Version>
+    <AssemblyVersion>9.0.2.0</AssemblyVersion>
+    <FileVersion>9.0.2.0</FileVersion>
+    <Version>9.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup>
