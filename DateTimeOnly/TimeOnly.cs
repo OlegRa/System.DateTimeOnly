@@ -508,6 +508,11 @@ namespace System
         /// <returns>An object that is equivalent to the time contained in s, as specified by format, provider, and style.</returns>
         public static TimeOnly ParseExact(ReadOnlySpan<char> s, [StringSyntax(StringSyntaxAttribute.TimeOnlyFormat)] string[] formats, IFormatProvider? provider, DateTimeStyles style = DateTimeStyles.None)
         {
+            if ((style & ~DateTimeStyles.AllowWhiteSpaces) == 0)
+            {
+                ThrowOnBadFormatSpecifier(formats);
+            }
+
             ParseFailureKind result = TryParseExactInternal(s, formats, provider, style, out TimeOnly timeOnly);
             if (result != ParseFailureKind.None)
             {
@@ -740,7 +745,25 @@ namespace System
                 throw new ArgumentException(SR.Argument_InvalidDateStyles, nameof(style));
             }
 
+            ThrowOnBadFormatSpecifier(formats);
+
             return TryParseExactInternal(s, formats, provider, style, out result) == ParseFailureKind.None;
+        }
+
+        private static void ThrowOnBadFormatSpecifier(string?[]? formats)
+        {
+            if (formats == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < formats.Length; i++)
+            {
+                if (string.IsNullOrEmpty(formats[i]))
+                {
+                    throw new FormatException(SR.Argument_BadFormatSpecifier);
+                }
+            }
         }
 
         private static ParseFailureKind TryParseExactInternal(ReadOnlySpan<char> s, string?[]? formats, IFormatProvider? provider, DateTimeStyles style, out TimeOnly result)

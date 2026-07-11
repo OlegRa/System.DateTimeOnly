@@ -106,6 +106,11 @@ public sealed class ArgumentValidationTests
 
         Assert.Throws<FormatException>(() => DateOnly.ParseExact(
             string.Empty, [string.Empty], CultureInfo.InvariantCulture));
+
+        // invalid style must take priority over a bad formats entry, not the other way around
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.ParseExact(
+                string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)).ParamName);
     }
 
     [Fact]
@@ -127,15 +132,22 @@ public sealed class ArgumentValidationTests
             string.Empty, NullStringArray, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out dateOnly));
         Assert.Equal(default, dateOnly);
 
+        Assert.Throws<FormatException>(() => DateOnly.TryParseExact(
+            [], [string.Empty], CultureInfo.InvariantCulture,
+            DateTimeStyles.AllowWhiteSpaces, out dateOnly));
+
         Assert.False(DateOnly.TryParseExact(
-            [], [string.Empty], CultureInfo.InvariantCulture, 
+            [], Array.Empty<string>(), CultureInfo.InvariantCulture,
             DateTimeStyles.AllowWhiteSpaces, out dateOnly));
         Assert.Equal(default, dateOnly);
 
-        Assert.False(DateOnly.TryParseExact(
-            [], Array.Empty<string>(), CultureInfo.InvariantCulture, 
-            DateTimeStyles.AllowWhiteSpaces, out dateOnly));
-        Assert.Equal(default, dateOnly);
+        // a bad trailing entry must be caught even if an earlier format would have matched
+        Assert.Throws<FormatException>(() => DateOnly.ParseExact(
+            DateOnlyValue.ToString("yyyy-MM-dd"), ["yyyy-MM-dd", string.Empty], CultureInfo.InvariantCulture));
+
+        Assert.Throws<FormatException>(() => DateOnly.TryParseExact(
+            DateOnlyValue.ToString("yyyy-MM-dd").AsSpan(), ["yyyy-MM-dd", string.Empty], CultureInfo.InvariantCulture,
+            DateTimeStyles.None, out dateOnly));
 
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => DateOnly.TryParseExact(
@@ -240,6 +252,11 @@ public sealed class ArgumentValidationTests
 
         Assert.Throws<FormatException>(() => TimeOnly.ParseExact(
             string.Empty, [string.Empty], CultureInfo.InvariantCulture));
+
+        // invalid style must take priority over a bad formats entry, not the other way around
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.ParseExact(
+                string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)).ParamName);
     }
 
     [Fact]
@@ -261,15 +278,22 @@ public sealed class ArgumentValidationTests
             string.Empty, NullStringArray, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out timeOnly));
         Assert.Equal(default, timeOnly);
 
+        Assert.Throws<FormatException>(() => TimeOnly.TryParseExact(
+            [], [string.Empty], CultureInfo.InvariantCulture,
+            DateTimeStyles.AllowWhiteSpaces, out timeOnly));
+
         Assert.False(TimeOnly.TryParseExact(
-            [], [string.Empty], CultureInfo.InvariantCulture, 
+            [], Array.Empty<string>(), CultureInfo.InvariantCulture,
             DateTimeStyles.AllowWhiteSpaces, out timeOnly));
         Assert.Equal(default, timeOnly);
 
-        Assert.False(TimeOnly.TryParseExact(
-            [], Array.Empty<string>(), CultureInfo.InvariantCulture, 
-            DateTimeStyles.AllowWhiteSpaces, out timeOnly));
-        Assert.Equal(default, timeOnly);
+        // a bad trailing entry must be caught even if an earlier format would have matched
+        Assert.Throws<FormatException>(() => TimeOnly.ParseExact(
+            TimeOnlyValue.ToString("HH:mm:ss", CultureInfo.InvariantCulture), ["HH:mm:ss", string.Empty], CultureInfo.InvariantCulture));
+
+        Assert.Throws<FormatException>(() => TimeOnly.TryParseExact(
+            TimeOnlyValue.ToString("HH:mm:ss", CultureInfo.InvariantCulture).AsSpan(), ["HH:mm:ss", string.Empty], CultureInfo.InvariantCulture,
+            DateTimeStyles.None, out timeOnly));
 
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => TimeOnly.TryParseExact(
