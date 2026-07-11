@@ -49,8 +49,8 @@ public sealed class ArgumentValidationTests
     [Fact]
     public void DateOnlyTryFormatValidationWorkedTest()
     {
-        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat([], out _, "X".AsSpan()));
-        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat([], out _, "KK".AsSpan()));
+        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat(Span<char>.Empty, out _, "X".AsSpan()));
+        Assert.Throws<FormatException>(() => DateOnlyValue.TryFormat(Span<char>.Empty, out _, "KK".AsSpan()));
     }
 
     [Fact]
@@ -229,8 +229,8 @@ public sealed class ArgumentValidationTests
     [Fact]
     public void TimeOnlyTryFormatValidationWorkedTest()
     {
-        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat([], out _, "X".AsSpan()));
-        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat([], out _, "kk".AsSpan()));
+        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat(Span<char>.Empty, out _, "X".AsSpan()));
+        Assert.Throws<FormatException>(() => TimeOnlyValue.TryFormat(Span<char>.Empty, out _, "kk".AsSpan()));
     }
 
     [Fact]
