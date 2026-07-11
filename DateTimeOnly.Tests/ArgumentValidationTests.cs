@@ -77,6 +77,12 @@ public sealed class ArgumentValidationTests
 
         Assert.False(DateOnly.TryParse("aa-bb-cc", out dateOnly));
         Assert.Equal(default, dateOnly);
+
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.TryParse("aa-bb-cc".AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateOnly)).ParamName);
+
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.TryParse("aa-bb-cc", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateOnly)).ParamName);
     }
 
     [Fact]
@@ -131,13 +137,17 @@ public sealed class ArgumentValidationTests
             DateTimeStyles.AllowWhiteSpaces, out dateOnly));
         Assert.Equal(default, dateOnly);
 
-        Assert.False(DateOnly.TryParseExact(
-            string.Empty, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out dateOnly));
-        Assert.Equal(default, dateOnly);
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.TryParseExact(
+                string.Empty, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out dateOnly)).ParamName);
 
-        Assert.False(DateOnly.TryParseExact(
-            new ReadOnlySpan<char>(), string.Empty.AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out dateOnly));
-        Assert.Equal(default, dateOnly);
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.TryParseExact(
+                new ReadOnlySpan<char>(), string.Empty.AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out dateOnly)).ParamName);
+
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.TryParseExact(
+                string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out dateOnly)).ParamName);
 
         Assert.False(DateOnly.TryParseExact("aa-bb-cc", "dd-MM-YY", out dateOnly));
         Assert.Equal(default, dateOnly);
@@ -201,6 +211,12 @@ public sealed class ArgumentValidationTests
 
         Assert.False(TimeOnly.TryParse("aa:bb", out timeOnly));
         Assert.Equal(default, timeOnly);
+
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.TryParse("aa:bb".AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out timeOnly)).ParamName);
+
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.TryParse("aa:bb", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out timeOnly)).ParamName);
     }
 
     [Fact]
@@ -255,13 +271,17 @@ public sealed class ArgumentValidationTests
             DateTimeStyles.AllowWhiteSpaces, out timeOnly));
         Assert.Equal(default, timeOnly);
 
-        Assert.False(TimeOnly.TryParseExact(
-            string.Empty, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out timeOnly));
-        Assert.Equal(default, timeOnly);
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.TryParseExact(
+                string.Empty, string.Empty, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out timeOnly)).ParamName);
 
-        Assert.False(TimeOnly.TryParseExact(
-            new ReadOnlySpan<char>(), string.Empty.AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out timeOnly));
-        Assert.Equal(default, timeOnly);
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.TryParseExact(
+                new ReadOnlySpan<char>(), string.Empty.AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out timeOnly)).ParamName);
+
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.TryParseExact(
+                string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out timeOnly)).ParamName);
 
         Assert.False(TimeOnly.TryParseExact("aa-bb-cc", "dd-MM-YY", out timeOnly));
         Assert.Equal(default, timeOnly);
