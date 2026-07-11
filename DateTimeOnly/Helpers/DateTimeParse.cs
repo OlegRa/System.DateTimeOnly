@@ -58,6 +58,30 @@ internal static class DateTimeParse
 
     private static string[] GetValidTimeOnlyFormatStrings(DateTimeFormatInfo dtfi) =>
         ValidTimeOnlyFormatSpecifiers.SelectMany(dtfi.GetAllDateTimePatterns).ToArray();
+
+    internal static void ThrowOnBadFormatSpecifier(ReadOnlySpan<char> format)
+    {
+        if (!DateTimeFormat.IsWellFormedCustomFormat(format))
+        {
+            throw new FormatException(SR.Argument_BadFormatSpecifier);
+        }
+    }
+
+    internal static void ThrowOnBadFormatSpecifier(string?[]? formats)
+    {
+        if (formats == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < formats.Length; i++)
+        {
+            if (string.IsNullOrEmpty(formats[i]) || !DateTimeFormat.IsWellFormedCustomFormat(formats[i].AsSpan()))
+            {
+                throw new FormatException(SR.Argument_BadFormatSpecifier);
+            }
+        }
+    }
 }
 
 #pragma warning disable IDE0079

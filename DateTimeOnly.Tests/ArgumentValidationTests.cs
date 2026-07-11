@@ -111,6 +111,23 @@ public sealed class ArgumentValidationTests
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => DateOnly.ParseExact(
                 string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)).ParamName);
+
+        // malformed format string (unterminated literal / dangling escape) - approximates upstream's
+        // Argument_BadFormatSpecifier failure, since this backport can't detect it the same way upstream does
+        Assert.Throws<FormatException>(
+            () => DateOnly.ParseExact(string.Empty, @"MM'-'\", CultureInfo.InvariantCulture));
+
+        Assert.Throws<FormatException>(
+            () => DateOnly.ParseExact(string.Empty, @"\MM'", CultureInfo.InvariantCulture));
+
+        // a malformed trailing entry must be caught even if an earlier format would have matched
+        Assert.Throws<FormatException>(
+            () => DateOnly.ParseExact(
+                DateOnlyValue.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), ["yyyy-MM-dd", @"MM'-'\"], CultureInfo.InvariantCulture));
+
+        // invalid style must take priority over a malformed format, not the other way around
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.ParseExact(string.Empty, @"MM'-'\", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)).ParamName);
     }
 
     [Fact]
@@ -160,6 +177,23 @@ public sealed class ArgumentValidationTests
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => DateOnly.TryParseExact(
                 string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out dateOnly)).ParamName);
+
+        // malformed format string - TryParseExact must now throw instead of silently returning false
+        Assert.Throws<FormatException>(
+            () => DateOnly.TryParseExact(string.Empty, @"MM'-'\", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOnly));
+
+        Assert.Throws<FormatException>(
+            () => DateOnly.TryParseExact(string.Empty.AsSpan(), @"\MM'".AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOnly));
+
+        // a malformed trailing entry must be caught even if an earlier format would have matched
+        Assert.Throws<FormatException>(
+            () => DateOnly.TryParseExact(
+                DateOnlyValue.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), ["yyyy-MM-dd", @"MM'-'\"], CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out dateOnly));
+
+        // invalid style must take priority over a malformed format, not the other way around
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => DateOnly.TryParseExact(string.Empty, @"MM'-'\", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out dateOnly)).ParamName);
 
         Assert.False(DateOnly.TryParseExact("aa-bb-cc", "dd-MM-YY", out dateOnly));
         Assert.Equal(default, dateOnly);
@@ -257,6 +291,23 @@ public sealed class ArgumentValidationTests
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => TimeOnly.ParseExact(
                 string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)).ParamName);
+
+        // malformed format string (unterminated literal / dangling escape) - approximates upstream's
+        // Argument_BadFormatSpecifier failure, since this backport can't detect it the same way upstream does
+        Assert.Throws<FormatException>(
+            () => TimeOnly.ParseExact(string.Empty, @"mm'-'\", CultureInfo.InvariantCulture));
+
+        Assert.Throws<FormatException>(
+            () => TimeOnly.ParseExact(string.Empty, @"\mm'", CultureInfo.InvariantCulture));
+
+        // a malformed trailing entry must be caught even if an earlier format would have matched
+        Assert.Throws<FormatException>(
+            () => TimeOnly.ParseExact(
+                TimeOnlyValue.ToString("HH:mm:ss", CultureInfo.InvariantCulture), ["HH:mm:ss", @"mm'-'\"], CultureInfo.InvariantCulture));
+
+        // invalid style must take priority over a malformed format, not the other way around
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.ParseExact(string.Empty, @"mm'-'\", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)).ParamName);
     }
 
     [Fact]
@@ -306,6 +357,23 @@ public sealed class ArgumentValidationTests
         Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
             () => TimeOnly.TryParseExact(
                 string.Empty, [string.Empty], CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out timeOnly)).ParamName);
+
+        // malformed format string - TryParseExact must now throw instead of silently returning false
+        Assert.Throws<FormatException>(
+            () => TimeOnly.TryParseExact(string.Empty, @"mm'-'\", CultureInfo.InvariantCulture, DateTimeStyles.None, out timeOnly));
+
+        Assert.Throws<FormatException>(
+            () => TimeOnly.TryParseExact(string.Empty.AsSpan(), @"\mm'".AsSpan(), CultureInfo.InvariantCulture, DateTimeStyles.None, out timeOnly));
+
+        // a malformed trailing entry must be caught even if an earlier format would have matched
+        Assert.Throws<FormatException>(
+            () => TimeOnly.TryParseExact(
+                TimeOnlyValue.ToString("HH:mm:ss", CultureInfo.InvariantCulture), ["HH:mm:ss", @"mm'-'\"], CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out timeOnly));
+
+        // invalid style must take priority over a malformed format, not the other way around
+        Assert.Equal(StyleArgumentName, Assert.Throws<ArgumentException>(
+            () => TimeOnly.TryParseExact(string.Empty, @"mm'-'\", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out timeOnly)).ParamName);
 
         Assert.False(TimeOnly.TryParseExact("aa-bb-cc", "dd-MM-YY", out timeOnly));
         Assert.Equal(default, timeOnly);
