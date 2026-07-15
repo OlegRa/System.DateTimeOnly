@@ -73,7 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="10.0.9" PrivateAssets="compile;contentfiles;build;analyzers" />
+    <PackageReference Include="System.Text.Json" Version="10.0.10" PrivateAssets="compile;contentfiles;build;analyzers" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="All" />
   </ItemGroup>
 
